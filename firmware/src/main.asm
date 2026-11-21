@@ -17,7 +17,14 @@
 
 .include "m16def.inc"
 
-.equ MAXPOS    = 100 * 256      ; 100.0 диодов в формате 8.8
+; Геометрия ленты: меняется только здесь.
+.equ NLED      = 120            ; диодов в ленте
+.equ PKT       = 20             ; диодов в пакете
+.equ NBYTES    = NLED * 3       ; байт кадра, порядок GRB
+.equ MAXPOS    = (NLED - PKT) * 256  ; предел позиции, формат 8.8
+.equ START0    = MAXPOS * 10 / 100   ; старт красного
+.equ START1    = MAXPOS * 40 / 100   ; старт зелёного
+.equ START2    = MAXPOS * 80 / 100   ; старт синего
 .equ REFRAC_FRAMES = 40        ; 40 кадров = 200 мс между ударами
 .equ HIT_DELTA = 60             ; прирост АЦП, считающийся ударом
 .equ HIT_MIN   = 120            ; ниже этого уровня удар не считаем
@@ -30,7 +37,7 @@
 
 .dseg
 .org 0x0060
-buffer:   .byte 360             ; 120 * 3, порядок GRB
+buffer:   .byte NBYTES          ; NLED * 3, порядок GRB
 
 pos0l:    .byte 1
 pos0h:    .byte 1
@@ -97,6 +104,11 @@ adc_init_wait:
     ldi r16, 0x03               ; Timer1, clk/64
     out TCCR1B, r16
 
+    ldi r16, (1<<WDTOE)|(1<<WDE) ; сторож 2 с: сброс в каждом кадре
+    out WDTCR, r16
+    ldi r16, (1<<WDE)|(1<<WDP2)|(1<<WDP1)|(1<<WDP0)
+    out WDTCR, r16
+
     clr r16
     sts flip, r16
     sts hitcnt, r16
@@ -110,16 +122,17 @@ adc_init_wait:
     sts lvl1, r16
     sts lvl2, r16
 
+    ldi r16, low(START0)
     sts pos0l, r16
-    ldi r16, 0x0A               ; 10.0
+    ldi r16, high(START0)
     sts pos0h, r16
-    clr r16
+    ldi r16, low(START1)
     sts pos1l, r16
-    ldi r16, 0x28               ; 40.0
+    ldi r16, high(START1)
     sts pos1h, r16
-    clr r16
+    ldi r16, low(START2)
     sts pos2l, r16
-    ldi r16, 0x50               ; 80.0
+    ldi r16, high(START2)
     sts pos2h, r16
 
     clr r16
@@ -130,6 +143,7 @@ adc_init_wait:
 ;  Главный цикл: 5 мс на кадр
 ; ----------------------------------------------------------------------------
 main_loop:
+    wdr
     clr r16
     out TCNT1H, r16
     out TCNT1L, r16
@@ -423,8 +437,8 @@ uo_store:
 clear_buffer:
     ldi YL, low(buffer)
     ldi YH, high(buffer)
-    ldi r20, low(360)
-    ldi r21, high(360)
+    ldi r20, low(NBYTES)
+    ldi r21, high(NBYTES)
     clr r22
 cb_loop:
     st Y+, r22
@@ -453,7 +467,7 @@ draw_packet:
     adc YH, r21
     add YL, r16
     adc YH, zero
-    ldi r21, 20
+    ldi r21, PKT
 dp_loop:
     ld r22, Y
     add r22, r24
@@ -468,14 +482,14 @@ dp_done:
     ret
 
 ; ----------------------------------------------------------------------------
-;  Выдача 360 байт в WS2812. 16 МГц, 20 тактов на бит.
+;  Выдача NBYTES байт в WS2812. 16 МГц, 20 тактов на бит.
 ;  Бит 1: 12 тактов высокого, 8 низкого. Бит 0: 6 высокого, 14 низкого.
 ; ----------------------------------------------------------------------------
 ws_send:
     ldi ZL, low(buffer)
     ldi ZH, high(buffer)
-    ldi r18, low(360)
-    ldi r19, high(360)
+    ldi r18, low(NBYTES)
+    ldi r19, high(NBYTES)
 ws_byte:
     ld r16, Z+
     ldi r17, 8
@@ -528,8 +542,11 @@ ws_next:
 ;  Ждём 5 мс от начала кадра (Timer1, /64: 1250 тиков)
 ; ----------------------------------------------------------------------------
 wait_frame:
+    in r17, TCNT1H              ; H-L-H: перенос между чтениями не портит счёт
     in r16, TCNT1L
-    in r17, TCNT1H
+    in r18, TCNT1H
+    cp r17, r18
+    brne wait_frame
     subi r16, low(FRAME_TICKS)
     sbci r17, high(FRAME_TICKS)
     brcs wait_frame

@@ -14,10 +14,20 @@ clean:
 	rm -rf build
 	rm -f src/main.obj src/main.eep.hex
 
+PKG_CONFIG ?= pkg-config
+
+check: $(OUT).hex
+	@$(PKG_CONFIG) --exists simavr || \
+		{ echo "simavr not found: install simavr (pacman/AUR)"; exit 1; }
+	$(CC) -O2 -Wall -Wextra $$($(PKG_CONFIG) --cflags simavr) \
+		-o build/test_ws2812 test/test_ws2812.c \
+		$$($(PKG_CONFIG) --libs simavr)
+	./build/test_ws2812 $(OUT).hex
+
 flash: $(OUT).hex
 	$(AVRDUDE) -c usbasp -p $(MCU) -U flash:w:$(OUT).hex:i
 
 fuses:
 	$(AVRDUDE) -c usbasp -p $(MCU) -U lfuse:w:0x3F:m -U hfuse:w:0xCF:m
 
-.PHONY: all clean flash fuses
+.PHONY: all clean check flash fuses
