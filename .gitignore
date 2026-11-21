@@ -2,3 +2,6 @@
 firmware/build/
 firmware/src/main.obj
 firmware/src/main.eep.hex
+
+# host core
+firmware-stm32/build/

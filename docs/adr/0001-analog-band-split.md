@@ -1,5 +1,6 @@
 ---
-status: accepted
+status: superseded
+superseded-by: 0002
 ---
 
 # Деление спектра аналоговыми фильтрами
