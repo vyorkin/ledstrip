@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1300 1180" width="1300" height="1180">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1300 1300" width="1300" height="1300">
 <style>
 .w{stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
 .nw{stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-dasharray:4 3}
@@ -19,14 +19,14 @@
 </style>
 <text x="40" y="50" class="ttl" text-anchor="start">Цветомузыка WS2812 — фильтры и детекторы</text>
 <text x="40" y="76" class="sub" text-anchor="start">Лист 2 из 3: три полосовых фильтра MFB, точные пиковые детекторы, усилители к АЦП</text>
-<text x="40" y="180" class="h" text-anchor="start">НИЗ 100…202 Гц (R)</text>
+<text x="40" y="130" class="h" text-anchor="start">НИЗ 101…197 Гц (R)</text>
 <circle cx="40" cy="260" r="3" class="jo"/>
 <text x="48" y="264" class="n" text-anchor="start">SIG</text>
 <line x1="50" y1="260" x2="60" y2="260" class="w"/>
 <line x1="60" y1="260" x2="70" y2="260" class="w"/>
 <rect x="70" y="253" width="40" height="14" rx="0" class="c"/>
 <line x1="110" y1="260" x2="120" y2="260" class="w"/>
-<text x="90" y="247" class="t" text-anchor="middle">R14 33k</text>
+<text x="90" y="247" class="t" text-anchor="middle">R14 16k</text>
 <line x1="120" y1="260" x2="140" y2="260" class="w"/>
 <circle cx="160" cy="260" r="3.2" class="j"/>
 <line x1="140" y1="260" x2="160" y2="260" class="w"/>
@@ -42,7 +42,7 @@
 <line x1="160" y1="270" x2="160" y2="280" class="w"/>
 <rect x="153" y="280" width="14" height="40" rx="0" class="c"/>
 <line x1="160" y1="320" x2="160" y2="330" class="w"/>
-<text x="147" y="304" class="t" text-anchor="end">R15 6.8k</text>
+<text x="147" y="304" class="t" text-anchor="end">R15 5.1k</text>
 <line x1="160" y1="260" x2="160" y2="270" class="w"/>
 <line x1="160" y1="330" x2="160" y2="340" class="w"/>
 <circle cx="160" cy="345" r="3" class="jo"/>
@@ -59,9 +59,10 @@
 <text x="208" y="279" class="n" text-anchor="end">2V5</text>
 <line x1="295" y1="260" x2="315" y2="260" class="w"/>
 <line x1="315" y1="260" x2="315" y2="160" class="w"/>
-<line x1="315" y1="160" x2="210" y2="160" class="w"/>
-<line x1="210" y1="160" x2="210" y2="225" class="w"/>
-<line x1="210" y1="160" x2="210" y2="195" class="w"/>
+<line x1="315" y1="160" x2="264" y2="160" class="w"/>
+<line x1="236" y1="160" x2="160" y2="160" class="w"/>
+<line x1="160" y1="160" x2="160" y2="260" class="w"/>
+<line x1="210" y1="195" x2="210" y2="225" class="w"/>
 <line x1="210" y1="195" x2="220" y2="195" class="w"/>
 <line x1="220" y1="195" x2="230" y2="195" class="w"/>
 <rect x="230" y="188" width="40" height="14" rx="0" class="c"/>
@@ -75,7 +76,7 @@
 <line x1="280" y1="195" x2="315" y2="195" class="w"/>
 <line x1="315" y1="260" x2="340" y2="260" class="w"/>
 <circle cx="345" cy="260" r="3" class="jo"/>
-<text x="353" y="264" class="n" text-anchor="start">LOW</text>
+<text x="353" y="252" class="n" text-anchor="start">LOW</text>
 <line x1="340" y1="260" x2="440" y2="260" class="w"/>
 <line x1="440" y1="260" x2="440" y2="275" class="w"/>
 <line x1="440" y1="275" x2="470" y2="275" class="w"/>
@@ -124,7 +125,7 @@
 <text x="728" y="352" class="n" text-anchor="start">2V5</text>
 <line x1="690" y1="260" x2="760" y2="260" class="w"/>
 <circle cx="765" cy="260" r="3" class="jo"/>
-<text x="773" y="264" class="n" text-anchor="start">P_L</text>
+<text x="758" y="252" class="n" text-anchor="end">P_L</text>
 <text x="860" y="170" class="sm" text-anchor="start">К АЦП: (P−2.5)×6.8</text>
 <line x1="760" y1="260" x2="780" y2="260" class="w"/>
 <line x1="780" y1="260" x2="780" y2="275" class="w"/>
@@ -185,14 +186,14 @@
 <line x1="1121" y1="309" x2="1139" y2="309" class="w"/>
 <line x1="1125" y1="313" x2="1135" y2="313" class="w"/>
 <line x1="1128.5" y1="317" x2="1131.5" y2="317" class="w"/>
-<text x="40" y="540" class="h" text-anchor="start">СРЕД 3.5…6.5 кГц (G)</text>
+<text x="40" y="490" class="h" text-anchor="start">СРЕД 3.50…6.62 кГц (G)</text>
 <circle cx="40" cy="620" r="3" class="jo"/>
 <text x="48" y="624" class="n" text-anchor="start">SIG</text>
 <line x1="50" y1="620" x2="60" y2="620" class="w"/>
 <line x1="60" y1="620" x2="70" y2="620" class="w"/>
 <rect x="70" y="613" width="40" height="14" rx="0" class="c"/>
 <line x1="110" y1="620" x2="120" y2="620" class="w"/>
-<text x="90" y="607" class="t" text-anchor="middle">R24 11k</text>
+<text x="90" y="607" class="t" text-anchor="middle">R24 33k</text>
 <line x1="120" y1="620" x2="140" y2="620" class="w"/>
 <circle cx="160" cy="620" r="3.2" class="j"/>
 <line x1="140" y1="620" x2="160" y2="620" class="w"/>
@@ -200,7 +201,7 @@
 <line x1="171" y1="612" x2="171" y2="628" class="w"/>
 <line x1="177" y1="612" x2="177" y2="628" class="w"/>
 <line x1="177" y1="620" x2="188" y2="620" class="w"/>
-<text x="174" y="605" class="t" text-anchor="middle">C16 10 нФ</text>
+<text x="174" y="605" class="t" text-anchor="middle">C16 1.5 нФ</text>
 <line x1="188" y1="620" x2="210" y2="620" class="w"/>
 <line x1="210" y1="620" x2="210" y2="585" class="w"/>
 <line x1="210" y1="585" x2="235" y2="585" class="w"/>
@@ -208,7 +209,7 @@
 <line x1="160" y1="630" x2="160" y2="640" class="w"/>
 <rect x="153" y="640" width="14" height="40" rx="0" class="c"/>
 <line x1="160" y1="680" x2="160" y2="690" class="w"/>
-<text x="147" y="664" class="t" text-anchor="end">R25 1.1k</text>
+<text x="147" y="664" class="t" text-anchor="end">R25 9.1k</text>
 <line x1="160" y1="620" x2="160" y2="630" class="w"/>
 <line x1="160" y1="690" x2="160" y2="700" class="w"/>
 <circle cx="160" cy="705" r="3" class="jo"/>
@@ -225,23 +226,24 @@
 <text x="208" y="639" class="n" text-anchor="end">2V5</text>
 <line x1="295" y1="620" x2="315" y2="620" class="w"/>
 <line x1="315" y1="620" x2="315" y2="520" class="w"/>
-<line x1="315" y1="520" x2="210" y2="520" class="w"/>
-<line x1="210" y1="520" x2="210" y2="585" class="w"/>
-<line x1="210" y1="520" x2="210" y2="555" class="w"/>
+<line x1="315" y1="520" x2="264" y2="520" class="w"/>
+<line x1="236" y1="520" x2="160" y2="520" class="w"/>
+<line x1="160" y1="520" x2="160" y2="620" class="w"/>
+<line x1="210" y1="555" x2="210" y2="585" class="w"/>
 <line x1="210" y1="555" x2="220" y2="555" class="w"/>
 <line x1="220" y1="555" x2="230" y2="555" class="w"/>
 <rect x="230" y="548" width="40" height="14" rx="0" class="c"/>
 <line x1="270" y1="555" x2="280" y2="555" class="w"/>
-<text x="250" y="542" class="t" text-anchor="middle">R26 27k</text>
+<text x="250" y="542" class="t" text-anchor="middle">R26 68k</text>
 <line x1="236" y1="520" x2="247" y2="520" class="w"/>
 <line x1="247" y1="512" x2="247" y2="528" class="w"/>
 <line x1="253" y1="512" x2="253" y2="528" class="w"/>
 <line x1="253" y1="520" x2="264" y2="520" class="w"/>
-<text x="250" y="505" class="t" text-anchor="middle">C17 10 нФ</text>
+<text x="250" y="505" class="t" text-anchor="middle">C17 1.5 нФ</text>
 <line x1="280" y1="555" x2="315" y2="555" class="w"/>
 <line x1="315" y1="620" x2="340" y2="620" class="w"/>
 <circle cx="345" cy="620" r="3" class="jo"/>
-<text x="353" y="624" class="n" text-anchor="start">MID</text>
+<text x="353" y="612" class="n" text-anchor="start">MID</text>
 <line x1="340" y1="620" x2="440" y2="620" class="w"/>
 <line x1="440" y1="620" x2="440" y2="635" class="w"/>
 <line x1="440" y1="635" x2="470" y2="635" class="w"/>
@@ -290,7 +292,7 @@
 <text x="728" y="712" class="n" text-anchor="start">2V5</text>
 <line x1="690" y1="620" x2="760" y2="620" class="w"/>
 <circle cx="765" cy="620" r="3" class="jo"/>
-<text x="773" y="624" class="n" text-anchor="start">P_M</text>
+<text x="758" y="612" class="n" text-anchor="end">P_M</text>
 <text x="860" y="530" class="sm" text-anchor="start">К АЦП: (P−2.5)×6.8</text>
 <line x1="760" y1="620" x2="780" y2="620" class="w"/>
 <line x1="780" y1="620" x2="780" y2="635" class="w"/>
@@ -351,14 +353,14 @@
 <line x1="1121" y1="669" x2="1139" y2="669" class="w"/>
 <line x1="1125" y1="673" x2="1135" y2="673" class="w"/>
 <line x1="1128.5" y1="677" x2="1131.5" y2="677" class="w"/>
-<text x="40" y="900" class="h" text-anchor="start">ВЕРХ 8.4…20.4 кГц (B)</text>
+<text x="40" y="850" class="h" text-anchor="start">ВЕРХ 8.60…20.4 кГц (B)</text>
 <circle cx="40" cy="980" r="3" class="jo"/>
 <text x="48" y="984" class="n" text-anchor="start">SIG</text>
 <line x1="50" y1="980" x2="60" y2="980" class="w"/>
 <line x1="60" y1="980" x2="70" y2="980" class="w"/>
 <rect x="70" y="973" width="40" height="14" rx="0" class="c"/>
 <line x1="110" y1="980" x2="120" y2="980" class="w"/>
-<text x="90" y="967" class="t" text-anchor="middle">R34 6.2k</text>
+<text x="90" y="967" class="t" text-anchor="middle">R34 13k</text>
 <line x1="120" y1="980" x2="140" y2="980" class="w"/>
 <circle cx="160" cy="980" r="3.2" class="j"/>
 <line x1="140" y1="980" x2="160" y2="980" class="w"/>
@@ -366,7 +368,7 @@
 <line x1="171" y1="972" x2="171" y2="988" class="w"/>
 <line x1="177" y1="972" x2="177" y2="988" class="w"/>
 <line x1="177" y1="980" x2="188" y2="980" class="w"/>
-<text x="174" y="965" class="t" text-anchor="middle">C20 5.6 нФ</text>
+<text x="174" y="965" class="t" text-anchor="middle">C20 1 нФ</text>
 <line x1="188" y1="980" x2="210" y2="980" class="w"/>
 <line x1="210" y1="980" x2="210" y2="945" class="w"/>
 <line x1="210" y1="945" x2="235" y2="945" class="w"/>
@@ -374,7 +376,7 @@
 <line x1="160" y1="990" x2="160" y2="1000" class="w"/>
 <rect x="153" y="1000" width="14" height="40" rx="0" class="c"/>
 <line x1="160" y1="1040" x2="160" y2="1050" class="w"/>
-<text x="147" y="1024" class="t" text-anchor="end">R35 1.3k</text>
+<text x="147" y="1024" class="t" text-anchor="end">R35 9.1k</text>
 <line x1="160" y1="980" x2="160" y2="990" class="w"/>
 <line x1="160" y1="1050" x2="160" y2="1060" class="w"/>
 <circle cx="160" cy="1065" r="3" class="jo"/>
@@ -391,23 +393,24 @@
 <text x="208" y="999" class="n" text-anchor="end">2V5</text>
 <line x1="295" y1="980" x2="315" y2="980" class="w"/>
 <line x1="315" y1="980" x2="315" y2="880" class="w"/>
-<line x1="315" y1="880" x2="210" y2="880" class="w"/>
-<line x1="210" y1="880" x2="210" y2="945" class="w"/>
-<line x1="210" y1="880" x2="210" y2="915" class="w"/>
+<line x1="315" y1="880" x2="264" y2="880" class="w"/>
+<line x1="236" y1="880" x2="160" y2="880" class="w"/>
+<line x1="160" y1="880" x2="160" y2="980" class="w"/>
+<line x1="210" y1="915" x2="210" y2="945" class="w"/>
 <line x1="210" y1="915" x2="220" y2="915" class="w"/>
 <line x1="220" y1="915" x2="230" y2="915" class="w"/>
 <rect x="230" y="908" width="40" height="14" rx="0" class="c"/>
 <line x1="270" y1="915" x2="280" y2="915" class="w"/>
-<text x="250" y="902" class="t" text-anchor="middle">R36 6.8k</text>
+<text x="250" y="902" class="t" text-anchor="middle">R36 27k</text>
 <line x1="236" y1="880" x2="247" y2="880" class="w"/>
 <line x1="247" y1="872" x2="247" y2="888" class="w"/>
 <line x1="253" y1="872" x2="253" y2="888" class="w"/>
 <line x1="253" y1="880" x2="264" y2="880" class="w"/>
-<text x="250" y="865" class="t" text-anchor="middle">C21 5.6 нФ</text>
+<text x="250" y="865" class="t" text-anchor="middle">C21 1 нФ</text>
 <line x1="280" y1="915" x2="315" y2="915" class="w"/>
 <line x1="315" y1="980" x2="340" y2="980" class="w"/>
 <circle cx="345" cy="980" r="3" class="jo"/>
-<text x="353" y="984" class="n" text-anchor="start">HIGH</text>
+<text x="353" y="972" class="n" text-anchor="start">HIGH</text>
 <line x1="340" y1="980" x2="440" y2="980" class="w"/>
 <line x1="440" y1="980" x2="440" y2="995" class="w"/>
 <line x1="440" y1="995" x2="470" y2="995" class="w"/>
@@ -456,7 +459,7 @@
 <text x="728" y="1072" class="n" text-anchor="start">2V5</text>
 <line x1="690" y1="980" x2="760" y2="980" class="w"/>
 <circle cx="765" cy="980" r="3" class="jo"/>
-<text x="773" y="984" class="n" text-anchor="start">P_H</text>
+<text x="758" y="972" class="n" text-anchor="end">P_H</text>
 <text x="860" y="890" class="sm" text-anchor="start">К АЦП: (P−2.5)×6.8</text>
 <line x1="760" y1="980" x2="780" y2="980" class="w"/>
 <line x1="780" y1="980" x2="780" y2="995" class="w"/>
@@ -518,10 +521,10 @@
 <line x1="1125" y1="1033" x2="1135" y2="1033" class="w"/>
 <line x1="1128.5" y1="1037" x2="1131.5" y2="1037" class="w"/>
 <text x="40" y="1105" class="sm" text-anchor="start">Примечания</text>
-<text x="40" y="1130" class="sm" text-anchor="start">Фильтры — MFB (multiple feedback); f0 = 150 / 5430 / 13840 Гц, C1 = C2.</text>
+<text x="40" y="1130" class="sm" text-anchor="start">Фильтры — MFB (multiple feedback); f0 = 141 / 4820 / 13240 Гц, C1 = C2; −3 дБ на 101…197 Гц, 3.50…6.62 кГц, 8.60…20.4 кГц.</text>
 <text x="40" y="1150" class="sm" text-anchor="start">R2 и «+» вход — на 2.5 В; вход фильтра — SIG (лист 1), выход — LOW/MID/HIGH.</text>
 <text x="40" y="1170" class="sm" text-anchor="start">Детектор: точный пиковый на ОУ (диод в петле, падение скомпенсировано);</text>
-<text x="40" y="1190" class="sm" text-anchor="start">C14/C18/C22 1 мкФ, R18/R28/R38 220k: спад ≈170 мс; холостой уровень 2.5 В.</text>
+<text x="40" y="1190" class="sm" text-anchor="start">C14/C18/C22 1 мкФ, R18/R28/R38 220k: спад ≈180 мс; холостой уровень 2.5 В.</text>
 <text x="40" y="1210" class="sm" text-anchor="start">Дифф. усилитель: (P−2.5)×6.8 (6.8M/1M), опора 2.5 В; 1k + 100 нФ на входе АЦП.</text>
 <text x="40" y="1230" class="sm" text-anchor="start">MCP6004: 5 В, pin 4 = +5 В, pin 11 = GND; свободный U2D — повторитель 2.5 В (лист 1).</text>
 <text x="40" y="1250" class="sm" text-anchor="start">U1B/C/D — фильтры; U2A/B/C — детекторы; U3A/B/C — дифф. усилители.</text>

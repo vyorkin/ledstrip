@@ -31,10 +31,10 @@
 cd firmware
 make            # build/ledstrip.hex, .lst, .map
 make flash      # avrdude -c usbasp -p m16 -U flash:w:build/ledstrip.hex:i
-make fuses      # lfuse=0xFF, hfuse=0xCF (внешний кварц 16 МГц)
+make fuses      # lfuse=0x3F, hfuse=0xCF (внешний кварц 16 МГц)
 ```
 
-Фьюзы: `lfuse = 0xFF` (внешний кварц 8–16 МГц),
+Фьюзы: `lfuse = 0x3F` (внешний кварц 8–16 МГц, BOD включён на 4.0 В),
 `hfuse = 0xCF` (JTAG выключен, SPIEN включён, BOOTRST выключен,
 CKOPT=0 — полный размах генератора).
 Для ATmega16 `CKSEL=1111` — внешний кварц 8–16 МГц; полный размах

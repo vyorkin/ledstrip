@@ -237,13 +237,13 @@
 <line x1="975" y1="521" x2="985" y2="521" class="w"/>
 <line x1="978.5" y1="525" x2="981.5" y2="525" class="w"/>
 <circle cx="950" cy="468" r="3" class="jo"/>
-<text x="958" y="472" class="n" text-anchor="start">AREF</text>
+<text x="958" y="456" class="n" text-anchor="start">AREF</text>
 <line x1="950" y1="504" x2="950" y2="514" class="w"/>
 <line x1="941" y1="514" x2="959" y2="514" class="w"/>
 <line x1="945" y1="518" x2="955" y2="518" class="w"/>
 <line x1="948.5" y1="522" x2="951.5" y2="522" class="w"/>
 <circle cx="950" cy="540" r="3" class="jo"/>
-<text x="958" y="544" class="n" text-anchor="start">AVCC</text>
+<text x="958" y="556" class="n" text-anchor="start">AVCC</text>
 <text x="60" y="130" class="h" text-anchor="start">ISP (6-pin)</text>
 <rect x="60" y="150" width="150" height="190" rx="0" class="c"/>
 <circle cx="200" cy="177.14285714285714" r="3" class="c"/>
@@ -431,7 +431,7 @@
 <line x1="1192" y1="462" x2="1208" y2="462" class="w"/>
 <line x1="1192" y1="468" x2="1208" y2="468" class="w"/>
 <line x1="1200" y1="468" x2="1200" y2="479" class="w"/>
-<text x="1212" y="469" class="t" text-anchor="start">C33 100 нФ</text>
+<text x="1212" y="450" class="t" text-anchor="start">C33 100 нФ</text>
 <line x1="1200" y1="479" x2="1200" y2="489" class="w"/>
 <line x1="1191" y1="489" x2="1209" y2="489" class="w"/>
 <line x1="1195" y1="493" x2="1205" y2="493" class="w"/>
@@ -441,13 +441,13 @@
 <line x1="1252" y1="462" x2="1268" y2="462" class="w"/>
 <line x1="1252" y1="468" x2="1268" y2="468" class="w"/>
 <line x1="1260" y1="468" x2="1260" y2="479" class="w"/>
-<text x="1272" y="469" class="t" text-anchor="start">C34 10 мкФ</text>
+<text x="1272" y="510" class="t" text-anchor="start">C34 10 мкФ</text>
 <line x1="1260" y1="479" x2="1260" y2="489" class="w"/>
 <line x1="1251" y1="489" x2="1269" y2="489" class="w"/>
 <line x1="1255" y1="493" x2="1265" y2="493" class="w"/>
 <line x1="1258.5" y1="497" x2="1261.5" y2="497" class="w"/>
 <line x1="1200" y1="430" x2="1260" y2="430" class="w"/>
-<text x="1080" y="520" class="sm" text-anchor="start">C34 — электролит, C33 — керамика</text>
+<text x="1080" y="540" class="sm" text-anchor="start">C34 — электролит, C33 — керамика</text>
 <text x="1080" y="590" class="h" text-anchor="start">Развязка +5 В</text>
 <line x1="1060" y1="620" x2="1060" y2="608" class="w"/>
 <line x1="1052" y1="608" x2="1068" y2="608" class="w"/>
@@ -458,7 +458,7 @@
 <line x1="1132" y1="652" x2="1148" y2="652" class="w"/>
 <line x1="1132" y1="658" x2="1148" y2="658" class="w"/>
 <line x1="1140" y1="658" x2="1140" y2="669" class="w"/>
-<text x="1152" y="659" class="t" text-anchor="start">C36 100 нФ</text>
+<text x="1152" y="635" class="t" text-anchor="start">C36 100 нФ</text>
 <line x1="1140" y1="669" x2="1140" y2="679" class="w"/>
 <line x1="1131" y1="679" x2="1149" y2="679" class="w"/>
 <line x1="1135" y1="683" x2="1145" y2="683" class="w"/>
@@ -468,14 +468,14 @@
 <line x1="1192" y1="652" x2="1208" y2="652" class="w"/>
 <line x1="1192" y1="658" x2="1208" y2="658" class="w"/>
 <line x1="1200" y1="658" x2="1200" y2="669" class="w"/>
-<text x="1212" y="659" class="t" text-anchor="start">C37 10 мкФ</text>
+<text x="1212" y="710" class="t" text-anchor="start">C37 10 мкФ</text>
 <line x1="1200" y1="669" x2="1200" y2="679" class="w"/>
 <line x1="1191" y1="679" x2="1209" y2="679" class="w"/>
 <line x1="1195" y1="683" x2="1205" y2="683" class="w"/>
 <line x1="1198.5" y1="687" x2="1201.5" y2="687" class="w"/>
-<text x="1080" y="720" class="sm" text-anchor="start">C36, C37 — у выводов 10/11 МК</text>
+<text x="1080" y="740" class="sm" text-anchor="start">C36, C37 — у выводов 10/11 МК</text>
 <text x="40" y="1060" class="h" text-anchor="start">Примечания</text>
-<text x="40" y="1088" class="sm" text-anchor="start">Тактовый кварц 16 МГц: lfuse = 0xFF (внешний кварц 8–16 МГц, BOD 4.0 В), hfuse = 0xCF (JTAG off, SPIEN on, CKOPT=0).</text>
+<text x="40" y="1088" class="sm" text-anchor="start">Тактовый кварц 16 МГц: lfuse = 0x3F (внешний кварц 8–16 МГц, BOD 4.0 В), hfuse = 0xCF (JTAG off, SPIEN on, CKOPT=0).</text>
 <text x="40" y="1108" class="sm" text-anchor="start">PB0 → R44 330 Ом → DATA; J6 — разъём ленты (DATA, GND); +5 В 10 А — J3 (5.08 мм) → 5V_STRIP напрямую; при токе >3 А +5 В ленты не через J6.</text>
 <text x="40" y="1128" class="sm" text-anchor="start">PA0..PA2 — входы АЦП от листа 2 (ADC0..ADC2); AREF — 100 нФ на GND; AVCC — через L1.</text>
 <text x="40" y="1148" class="sm" text-anchor="start">PD2 — кнопка на GND, внутренняя подтяжка; переключает режимы 0 → 1 → 2 → 3 → 0.</text>
