@@ -1,0 +1,484 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 1250" width="1500" height="1250">
+<style>
+.w{stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.nw{stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-dasharray:4 3}
+.c{stroke:currentColor;fill:none;stroke-width:1.5;stroke-linejoin:round}
+.p{stroke:currentColor;fill:none;stroke-width:2;stroke-linejoin:round}
+.j{fill:currentColor;stroke:none}
+.jo{fill:none;stroke:currentColor;stroke-width:1.5}
+.t{fill:currentColor;font-family:sans-serif;font-size:12px}
+.v{fill:var(--muted);font-family:sans-serif;font-size:11px}
+.r{fill:var(--accent);font-family:sans-serif;font-size:9px}
+.h{fill:currentColor;font-family:sans-serif;font-size:15px;font-weight:600}
+.ttl{fill:currentColor;font-family:sans-serif;font-size:22px}
+.sub{fill:var(--muted);font-family:sans-serif;font-size:13px}
+.sm{fill:var(--muted);font-family:sans-serif;font-size:10.5px}
+.n{fill:var(--accent);font-family:sans-serif;font-size:12px}
+.pl{fill:var(--accent);font-family:sans-serif;font-size:12px;font-weight:600}
+.nt{fill:currentColor;font-family:sans-serif;font-size:13px}
+</style>
+<text x="40" y="50" class="ttl" text-anchor="start">Цветомузыка WS2812 — микроконтроллер</text>
+<text x="40" y="76" class="sub" text-anchor="start">Лист 3 из 3: ATmega16A-PU, кварц 16 МГц, ISP, кнопка, WS2812, питание АЦП</text>
+<rect x="520" y="140" width="360" height="790" rx="0" class="c"/>
+<text x="700.0" y="130" class="t" text-anchor="middle">U5 ATmega16A-PU</text>
+<line x1="470" y1="180" x2="520" y2="180" class="w"/>
+<text x="530" y="184" class="t" text-anchor="start">PB0</text>
+<text x="500" y="174" class="r" text-anchor="end">1</text>
+<line x1="470" y1="216" x2="520" y2="216" class="w"/>
+<text x="530" y="220" class="t" text-anchor="start">PB1</text>
+<text x="500" y="210" class="r" text-anchor="end">2</text>
+<line x1="470" y1="252" x2="520" y2="252" class="w"/>
+<text x="530" y="256" class="t" text-anchor="start">PB2</text>
+<text x="500" y="246" class="r" text-anchor="end">3</text>
+<line x1="470" y1="288" x2="520" y2="288" class="w"/>
+<text x="530" y="292" class="t" text-anchor="start">PB3</text>
+<text x="500" y="282" class="r" text-anchor="end">4</text>
+<line x1="470" y1="324" x2="520" y2="324" class="w"/>
+<text x="530" y="328" class="t" text-anchor="start">PB4</text>
+<text x="500" y="318" class="r" text-anchor="end">5</text>
+<line x1="470" y1="360" x2="520" y2="360" class="w"/>
+<text x="530" y="364" class="t" text-anchor="start">PB5</text>
+<text x="500" y="354" class="r" text-anchor="end">6</text>
+<line x1="470" y1="396" x2="520" y2="396" class="w"/>
+<text x="530" y="400" class="t" text-anchor="start">PB6</text>
+<text x="500" y="390" class="r" text-anchor="end">7</text>
+<line x1="470" y1="432" x2="520" y2="432" class="w"/>
+<text x="530" y="436" class="t" text-anchor="start">PB7</text>
+<text x="500" y="426" class="r" text-anchor="end">8</text>
+<line x1="470" y1="468" x2="520" y2="468" class="w"/>
+<text x="530" y="472" class="t" text-anchor="start">RESET</text>
+<text x="500" y="462" class="r" text-anchor="end">9</text>
+<line x1="470" y1="504" x2="520" y2="504" class="w"/>
+<text x="530" y="508" class="t" text-anchor="start">VCC</text>
+<text x="500" y="498" class="r" text-anchor="end">10</text>
+<line x1="470" y1="540" x2="520" y2="540" class="w"/>
+<text x="530" y="544" class="t" text-anchor="start">GND</text>
+<text x="500" y="534" class="r" text-anchor="end">11</text>
+<line x1="470" y1="576" x2="520" y2="576" class="w"/>
+<text x="530" y="580" class="t" text-anchor="start">XTAL2</text>
+<text x="500" y="570" class="r" text-anchor="end">12</text>
+<line x1="470" y1="612" x2="520" y2="612" class="w"/>
+<text x="530" y="616" class="t" text-anchor="start">XTAL1</text>
+<text x="500" y="606" class="r" text-anchor="end">13</text>
+<line x1="470" y1="648" x2="520" y2="648" class="w"/>
+<text x="530" y="652" class="t" text-anchor="start">PD0</text>
+<text x="500" y="642" class="r" text-anchor="end">14</text>
+<line x1="470" y1="684" x2="520" y2="684" class="w"/>
+<text x="530" y="688" class="t" text-anchor="start">PD1</text>
+<text x="500" y="678" class="r" text-anchor="end">15</text>
+<line x1="470" y1="720" x2="520" y2="720" class="w"/>
+<text x="530" y="724" class="t" text-anchor="start">PD2</text>
+<text x="500" y="714" class="r" text-anchor="end">16</text>
+<line x1="470" y1="756" x2="520" y2="756" class="w"/>
+<text x="530" y="760" class="t" text-anchor="start">PD3</text>
+<text x="500" y="750" class="r" text-anchor="end">17</text>
+<line x1="470" y1="792" x2="520" y2="792" class="w"/>
+<text x="530" y="796" class="t" text-anchor="start">PD4</text>
+<text x="500" y="786" class="r" text-anchor="end">18</text>
+<line x1="470" y1="828" x2="520" y2="828" class="w"/>
+<text x="530" y="832" class="t" text-anchor="start">PD5</text>
+<text x="500" y="822" class="r" text-anchor="end">19</text>
+<line x1="470" y1="864" x2="520" y2="864" class="w"/>
+<text x="530" y="868" class="t" text-anchor="start">PD6</text>
+<text x="500" y="858" class="r" text-anchor="end">20</text>
+<line x1="470" y1="900" x2="520" y2="900" class="w"/>
+<text x="530" y="904" class="t" text-anchor="start">PD7</text>
+<text x="500" y="894" class="r" text-anchor="end">21</text>
+<line x1="880" y1="180" x2="930" y2="180" class="w"/>
+<text x="870" y="184" class="t" text-anchor="end">PA0</text>
+<text x="900" y="174" class="r" text-anchor="start">40</text>
+<line x1="880" y1="216" x2="930" y2="216" class="w"/>
+<text x="870" y="220" class="t" text-anchor="end">PA1</text>
+<text x="900" y="210" class="r" text-anchor="start">39</text>
+<line x1="880" y1="252" x2="930" y2="252" class="w"/>
+<text x="870" y="256" class="t" text-anchor="end">PA2</text>
+<text x="900" y="246" class="r" text-anchor="start">38</text>
+<line x1="880" y1="288" x2="930" y2="288" class="w"/>
+<text x="870" y="292" class="t" text-anchor="end">PA3</text>
+<text x="900" y="282" class="r" text-anchor="start">37</text>
+<line x1="880" y1="324" x2="930" y2="324" class="w"/>
+<text x="870" y="328" class="t" text-anchor="end">PA4</text>
+<text x="900" y="318" class="r" text-anchor="start">36</text>
+<line x1="880" y1="360" x2="930" y2="360" class="w"/>
+<text x="870" y="364" class="t" text-anchor="end">PA5</text>
+<text x="900" y="354" class="r" text-anchor="start">35</text>
+<line x1="880" y1="396" x2="930" y2="396" class="w"/>
+<text x="870" y="400" class="t" text-anchor="end">PA6</text>
+<text x="900" y="390" class="r" text-anchor="start">34</text>
+<line x1="880" y1="432" x2="930" y2="432" class="w"/>
+<text x="870" y="436" class="t" text-anchor="end">PA7</text>
+<text x="900" y="426" class="r" text-anchor="start">33</text>
+<line x1="880" y1="468" x2="930" y2="468" class="w"/>
+<text x="870" y="472" class="t" text-anchor="end">AREF</text>
+<text x="900" y="462" class="r" text-anchor="start">32</text>
+<line x1="880" y1="504" x2="930" y2="504" class="w"/>
+<text x="870" y="508" class="t" text-anchor="end">GND</text>
+<text x="900" y="498" class="r" text-anchor="start">31</text>
+<line x1="880" y1="540" x2="930" y2="540" class="w"/>
+<text x="870" y="544" class="t" text-anchor="end">AVCC</text>
+<text x="900" y="534" class="r" text-anchor="start">30</text>
+<line x1="880" y1="576" x2="930" y2="576" class="w"/>
+<text x="870" y="580" class="t" text-anchor="end">PC7</text>
+<text x="900" y="570" class="r" text-anchor="start">29</text>
+<line x1="880" y1="612" x2="930" y2="612" class="w"/>
+<text x="870" y="616" class="t" text-anchor="end">PC6</text>
+<text x="900" y="606" class="r" text-anchor="start">28</text>
+<line x1="880" y1="648" x2="930" y2="648" class="w"/>
+<text x="870" y="652" class="t" text-anchor="end">PC5</text>
+<text x="900" y="642" class="r" text-anchor="start">27</text>
+<line x1="880" y1="684" x2="930" y2="684" class="w"/>
+<text x="870" y="688" class="t" text-anchor="end">PC4</text>
+<text x="900" y="678" class="r" text-anchor="start">26</text>
+<line x1="880" y1="720" x2="930" y2="720" class="w"/>
+<text x="870" y="724" class="t" text-anchor="end">PC3</text>
+<text x="900" y="714" class="r" text-anchor="start">25</text>
+<line x1="880" y1="756" x2="930" y2="756" class="w"/>
+<text x="870" y="760" class="t" text-anchor="end">PC2</text>
+<text x="900" y="750" class="r" text-anchor="start">24</text>
+<line x1="880" y1="792" x2="930" y2="792" class="w"/>
+<text x="870" y="796" class="t" text-anchor="end">PC1</text>
+<text x="900" y="786" class="r" text-anchor="start">23</text>
+<line x1="880" y1="828" x2="930" y2="828" class="w"/>
+<text x="870" y="832" class="t" text-anchor="end">PC0</text>
+<text x="900" y="822" class="r" text-anchor="start">22</text>
+<line x1="470" y1="180" x2="430" y2="180" class="w"/>
+<line x1="370" y1="180" x2="380" y2="180" class="w"/>
+<rect x="380" y="173" width="40" height="14" rx="0" class="c"/>
+<line x1="420" y1="180" x2="430" y2="180" class="w"/>
+<text x="400" y="167" class="t" text-anchor="middle">R44 330</text>
+<line x1="360" y1="180" x2="370" y2="180" class="w"/>
+<circle cx="360" cy="180" r="3" class="jo"/>
+<text x="352" y="184" class="n" text-anchor="end">DATA</text>
+<line x1="466" y1="212" x2="474" y2="220" class="w"/>
+<line x1="466" y1="220" x2="474" y2="212" class="w"/>
+<line x1="466" y1="248" x2="474" y2="256" class="w"/>
+<line x1="466" y1="256" x2="474" y2="248" class="w"/>
+<line x1="466" y1="284" x2="474" y2="292" class="w"/>
+<line x1="466" y1="292" x2="474" y2="284" class="w"/>
+<line x1="466" y1="320" x2="474" y2="328" class="w"/>
+<line x1="466" y1="328" x2="474" y2="320" class="w"/>
+<line x1="466" y1="644" x2="474" y2="652" class="w"/>
+<line x1="466" y1="652" x2="474" y2="644" class="w"/>
+<line x1="466" y1="680" x2="474" y2="688" class="w"/>
+<line x1="466" y1="688" x2="474" y2="680" class="w"/>
+<line x1="466" y1="752" x2="474" y2="760" class="w"/>
+<line x1="466" y1="760" x2="474" y2="752" class="w"/>
+<line x1="466" y1="788" x2="474" y2="796" class="w"/>
+<line x1="466" y1="796" x2="474" y2="788" class="w"/>
+<line x1="466" y1="824" x2="474" y2="832" class="w"/>
+<line x1="466" y1="832" x2="474" y2="824" class="w"/>
+<line x1="466" y1="860" x2="474" y2="868" class="w"/>
+<line x1="466" y1="868" x2="474" y2="860" class="w"/>
+<line x1="466" y1="896" x2="474" y2="904" class="w"/>
+<line x1="466" y1="904" x2="474" y2="896" class="w"/>
+<circle cx="470" cy="360" r="3" class="jo"/>
+<text x="462" y="364" class="n" text-anchor="end">MOSI</text>
+<circle cx="470" cy="396" r="3" class="jo"/>
+<text x="462" y="400" class="n" text-anchor="end">MISO</text>
+<circle cx="470" cy="432" r="3" class="jo"/>
+<text x="462" y="436" class="n" text-anchor="end">SCK</text>
+<circle cx="470" cy="468" r="3" class="jo"/>
+<text x="462" y="472" class="n" text-anchor="end">RESET</text>
+<circle cx="470" cy="504" r="3" class="jo"/>
+<text x="462" y="508" class="n" text-anchor="end">+5V</text>
+<line x1="470" y1="540" x2="470" y2="550" class="w"/>
+<line x1="461" y1="550" x2="479" y2="550" class="w"/>
+<line x1="465" y1="554" x2="475" y2="554" class="w"/>
+<line x1="468.5" y1="558" x2="471.5" y2="558" class="w"/>
+<circle cx="470" cy="576" r="3" class="jo"/>
+<text x="462" y="580" class="n" text-anchor="end">XTAL2</text>
+<circle cx="470" cy="612" r="3" class="jo"/>
+<text x="462" y="616" class="n" text-anchor="end">XTAL1</text>
+<circle cx="470" cy="720" r="3" class="jo"/>
+<text x="462" y="724" class="n" text-anchor="end">BUTTON</text>
+<circle cx="930" cy="180" r="3" class="jo"/>
+<text x="938" y="184" class="n" text-anchor="start">ADC0</text>
+<circle cx="930" cy="216" r="3" class="jo"/>
+<text x="938" y="220" class="n" text-anchor="start">ADC1</text>
+<circle cx="930" cy="252" r="3" class="jo"/>
+<text x="938" y="256" class="n" text-anchor="start">ADC2</text>
+<line x1="926" y1="284" x2="934" y2="292" class="w"/>
+<line x1="926" y1="292" x2="934" y2="284" class="w"/>
+<line x1="926" y1="320" x2="934" y2="328" class="w"/>
+<line x1="926" y1="328" x2="934" y2="320" class="w"/>
+<line x1="926" y1="356" x2="934" y2="364" class="w"/>
+<line x1="926" y1="364" x2="934" y2="356" class="w"/>
+<line x1="926" y1="392" x2="934" y2="400" class="w"/>
+<line x1="926" y1="400" x2="934" y2="392" class="w"/>
+<line x1="926" y1="428" x2="934" y2="436" class="w"/>
+<line x1="926" y1="436" x2="934" y2="428" class="w"/>
+<line x1="926" y1="572" x2="934" y2="580" class="w"/>
+<line x1="926" y1="580" x2="934" y2="572" class="w"/>
+<line x1="926" y1="608" x2="934" y2="616" class="w"/>
+<line x1="926" y1="616" x2="934" y2="608" class="w"/>
+<line x1="926" y1="644" x2="934" y2="652" class="w"/>
+<line x1="926" y1="652" x2="934" y2="644" class="w"/>
+<line x1="926" y1="680" x2="934" y2="688" class="w"/>
+<line x1="926" y1="688" x2="934" y2="680" class="w"/>
+<line x1="926" y1="716" x2="934" y2="724" class="w"/>
+<line x1="926" y1="724" x2="934" y2="716" class="w"/>
+<line x1="926" y1="752" x2="934" y2="760" class="w"/>
+<line x1="926" y1="760" x2="934" y2="752" class="w"/>
+<line x1="926" y1="788" x2="934" y2="796" class="w"/>
+<line x1="926" y1="796" x2="934" y2="788" class="w"/>
+<line x1="926" y1="824" x2="934" y2="832" class="w"/>
+<line x1="926" y1="832" x2="934" y2="824" class="w"/>
+<line x1="930" y1="468" x2="980" y2="468" class="w"/>
+<line x1="930" y1="504" x2="950" y2="504" class="w"/>
+<line x1="930" y1="540" x2="950" y2="540" class="w"/>
+<line x1="980" y1="468" x2="980" y2="478" class="w"/>
+<line x1="980" y1="479" x2="980" y2="490" class="w"/>
+<line x1="972" y1="490" x2="988" y2="490" class="w"/>
+<line x1="972" y1="496" x2="988" y2="496" class="w"/>
+<line x1="980" y1="496" x2="980" y2="507" class="w"/>
+<text x="992" y="497" class="t" text-anchor="start">C35 100 нФ</text>
+<line x1="980" y1="507" x2="980" y2="517" class="w"/>
+<line x1="971" y1="517" x2="989" y2="517" class="w"/>
+<line x1="975" y1="521" x2="985" y2="521" class="w"/>
+<line x1="978.5" y1="525" x2="981.5" y2="525" class="w"/>
+<circle cx="950" cy="468" r="3" class="jo"/>
+<text x="958" y="472" class="n" text-anchor="start">AREF</text>
+<line x1="950" y1="504" x2="950" y2="514" class="w"/>
+<line x1="941" y1="514" x2="959" y2="514" class="w"/>
+<line x1="945" y1="518" x2="955" y2="518" class="w"/>
+<line x1="948.5" y1="522" x2="951.5" y2="522" class="w"/>
+<circle cx="950" cy="540" r="3" class="jo"/>
+<text x="958" y="544" class="n" text-anchor="start">AVCC</text>
+<text x="60" y="130" class="h" text-anchor="start">ISP (6-pin)</text>
+<rect x="60" y="150" width="150" height="190" rx="0" class="c"/>
+<circle cx="200" cy="177.14285714285714" r="3" class="c"/>
+<line x1="203" y1="177.14285714285714" x2="210" y2="177.14285714285714" class="w"/>
+<text x="70" y="181.14285714285714" class="t" text-anchor="start">1</text>
+<text x="84" y="181.14285714285714" class="v" text-anchor="start">MISO</text>
+<circle cx="200" cy="204.28571428571428" r="3" class="c"/>
+<line x1="203" y1="204.28571428571428" x2="210" y2="204.28571428571428" class="w"/>
+<text x="70" y="208.28571428571428" class="t" text-anchor="start">2</text>
+<text x="84" y="208.28571428571428" class="v" text-anchor="start">VCC</text>
+<circle cx="200" cy="231.42857142857144" r="3" class="c"/>
+<line x1="203" y1="231.42857142857144" x2="210" y2="231.42857142857144" class="w"/>
+<text x="70" y="235.42857142857144" class="t" text-anchor="start">3</text>
+<text x="84" y="235.42857142857144" class="v" text-anchor="start">SCK</text>
+<circle cx="200" cy="258.57142857142856" r="3" class="c"/>
+<line x1="203" y1="258.57142857142856" x2="210" y2="258.57142857142856" class="w"/>
+<text x="70" y="262.57142857142856" class="t" text-anchor="start">4</text>
+<text x="84" y="262.57142857142856" class="v" text-anchor="start">MOSI</text>
+<circle cx="200" cy="285.7142857142857" r="3" class="c"/>
+<line x1="203" y1="285.7142857142857" x2="210" y2="285.7142857142857" class="w"/>
+<text x="70" y="289.7142857142857" class="t" text-anchor="start">5</text>
+<text x="84" y="289.7142857142857" class="v" text-anchor="start">RESET</text>
+<circle cx="200" cy="312.8571428571429" r="3" class="c"/>
+<line x1="203" y1="312.8571428571429" x2="210" y2="312.8571428571429" class="w"/>
+<text x="70" y="316.8571428571429" class="t" text-anchor="start">6</text>
+<text x="84" y="316.8571428571429" class="v" text-anchor="start">GND</text>
+<circle cx="210" cy="177.14285714285714" r="3" class="jo"/>
+<text x="218" y="181.14285714285714" class="n" text-anchor="start">MISO</text>
+<circle cx="210" cy="204.28571428571428" r="3" class="jo"/>
+<text x="218" y="208.28571428571428" class="n" text-anchor="start">+5V</text>
+<circle cx="210" cy="231.42857142857144" r="3" class="jo"/>
+<text x="218" y="235.42857142857144" class="n" text-anchor="start">SCK</text>
+<circle cx="210" cy="258.57142857142856" r="3" class="jo"/>
+<text x="218" y="262.57142857142856" class="n" text-anchor="start">MOSI</text>
+<circle cx="210" cy="285.7142857142857" r="3" class="jo"/>
+<text x="218" y="289.7142857142857" class="n" text-anchor="start">RESET</text>
+<circle cx="210" cy="312.8571428571429" r="3" class="jo"/>
+<text x="218" y="316.8571428571429" class="n" text-anchor="start">GND</text>
+<text x="60" y="420" class="h" text-anchor="start">Сброс</text>
+<line x1="100" y1="440" x2="100" y2="428" class="w"/>
+<line x1="92" y1="428" x2="108" y2="428" class="w"/>
+<text x="100" y="422" class="v" text-anchor="middle">+5 В</text>
+<line x1="100" y1="450" x2="100" y2="460" class="w"/>
+<rect x="93" y="460" width="14" height="40" rx="0" class="c"/>
+<line x1="100" y1="500" x2="100" y2="510" class="w"/>
+<text x="113" y="484" class="t" text-anchor="start">R45 10k</text>
+<line x1="100" y1="510" x2="100" y2="540" class="w"/>
+<line x1="100" y1="540" x2="190" y2="540" class="w"/>
+<circle cx="200" cy="540" r="3" class="jo"/>
+<text x="208" y="544" class="n" text-anchor="start">RESET</text>
+<circle cx="100" cy="560" r="3" class="c"/>
+<circle cx="100" cy="610" r="3" class="c"/>
+<line x1="100" y1="546" x2="100" y2="557" class="w"/>
+<line x1="100" y1="613" x2="100" y2="624" class="w"/>
+<line x1="92" y1="575" x2="112" y2="564" class="w"/>
+<line x1="104" y1="562" x2="104" y2="552" class="w"/>
+<text x="116" y="589.0" class="t" text-anchor="start">S1</text>
+<line x1="100" y1="540" x2="100" y2="557" class="w"/>
+<line x1="100" y1="624" x2="100" y2="640" class="w"/>
+<line x1="100" y1="640" x2="100" y2="650" class="w"/>
+<line x1="91" y1="650" x2="109" y2="650" class="w"/>
+<line x1="95" y1="654" x2="105" y2="654" class="w"/>
+<line x1="98.5" y1="658" x2="101.5" y2="658" class="w"/>
+<line x1="160" y1="540" x2="160" y2="550" class="w"/>
+<line x1="160" y1="551" x2="160" y2="562" class="w"/>
+<line x1="152" y1="562" x2="168" y2="562" class="w"/>
+<line x1="152" y1="568" x2="168" y2="568" class="w"/>
+<line x1="160" y1="568" x2="160" y2="579" class="w"/>
+<text x="172" y="569" class="t" text-anchor="start">C29 100 нФ</text>
+<line x1="160" y1="579" x2="160" y2="589" class="w"/>
+<line x1="151" y1="589" x2="169" y2="589" class="w"/>
+<line x1="155" y1="593" x2="165" y2="593" class="w"/>
+<line x1="158.5" y1="597" x2="161.5" y2="597" class="w"/>
+<text x="60" y="700" class="h" text-anchor="start">Кварц</text>
+<circle cx="60" cy="745" r="3" class="jo"/>
+<text x="52" y="749" class="n" text-anchor="end">XTAL1</text>
+<line x1="60" y1="745" x2="110" y2="745" class="w"/>
+<rect x="110" y="725" width="50" height="40" rx="0" class="c"/>
+<line x1="160" y1="745" x2="220" y2="745" class="w"/>
+<line x1="220" y1="745" x2="270" y2="745" class="w"/>
+<circle cx="270" cy="745" r="3" class="jo"/>
+<text x="278" y="749" class="n" text-anchor="start">XTAL2</text>
+<text x="135" y="715" class="t" text-anchor="middle">Y1 16 МГц</text>
+<circle cx="95" cy="745" r="3.2" class="j"/>
+<line x1="95" y1="745" x2="95" y2="780" class="w"/>
+<line x1="95" y1="781" x2="95" y2="792" class="w"/>
+<line x1="87" y1="792" x2="103" y2="792" class="w"/>
+<line x1="87" y1="798" x2="103" y2="798" class="w"/>
+<line x1="95" y1="798" x2="95" y2="809" class="w"/>
+<text x="83" y="799" class="t" text-anchor="end">C30 22 пФ</text>
+<line x1="95" y1="809" x2="95" y2="819" class="w"/>
+<line x1="86" y1="819" x2="104" y2="819" class="w"/>
+<line x1="90" y1="823" x2="100" y2="823" class="w"/>
+<line x1="93.5" y1="827" x2="96.5" y2="827" class="w"/>
+<circle cx="190" cy="745" r="3.2" class="j"/>
+<line x1="190" y1="745" x2="190" y2="780" class="w"/>
+<line x1="190" y1="781" x2="190" y2="792" class="w"/>
+<line x1="182" y1="792" x2="198" y2="792" class="w"/>
+<line x1="182" y1="798" x2="198" y2="798" class="w"/>
+<line x1="190" y1="798" x2="190" y2="809" class="w"/>
+<text x="202" y="799" class="t" text-anchor="start">C31 22 пФ</text>
+<line x1="190" y1="809" x2="190" y2="819" class="w"/>
+<line x1="181" y1="819" x2="199" y2="819" class="w"/>
+<line x1="185" y1="823" x2="195" y2="823" class="w"/>
+<line x1="188.5" y1="827" x2="191.5" y2="827" class="w"/>
+<text x="60" y="930" class="h" text-anchor="start">Кнопка режимов</text>
+<circle cx="60" cy="970" r="3" class="jo"/>
+<text x="52" y="974" class="n" text-anchor="end">BUTTON</text>
+<line x1="60" y1="970" x2="90" y2="970" class="w"/>
+<circle cx="120" cy="970" r="3" class="c"/>
+<circle cx="160" cy="970" r="3" class="c"/>
+<line x1="106" y1="970" x2="117" y2="970" class="w"/>
+<line x1="163" y1="970" x2="174" y2="970" class="w"/>
+<line x1="124" y1="960" x2="161" y2="972" class="w"/>
+<line x1="118" y1="966" x2="118" y2="956" class="w"/>
+<text x="140.0" y="952" class="t" text-anchor="middle">S2</text>
+<line x1="90" y1="970" x2="117" y2="970" class="w"/>
+<line x1="174" y1="970" x2="200" y2="970" class="w"/>
+<line x1="200" y1="970" x2="200" y2="980" class="w"/>
+<line x1="191" y1="980" x2="209" y2="980" class="w"/>
+<line x1="195" y1="984" x2="205" y2="984" class="w"/>
+<line x1="198.5" y1="988" x2="201.5" y2="988" class="w"/>
+<line x1="90" y1="970" x2="90" y2="985" class="w"/>
+<line x1="90" y1="986" x2="90" y2="997" class="w"/>
+<line x1="82" y1="997" x2="98" y2="997" class="w"/>
+<line x1="82" y1="1003" x2="98" y2="1003" class="w"/>
+<line x1="90" y1="1003" x2="90" y2="1014" class="w"/>
+<text x="102" y="1004" class="t" text-anchor="start">C32 100 нФ</text>
+<line x1="90" y1="1014" x2="90" y2="1024" class="w"/>
+<line x1="81" y1="1024" x2="99" y2="1024" class="w"/>
+<line x1="85" y1="1028" x2="95" y2="1028" class="w"/>
+<line x1="88.5" y1="1032" x2="91.5" y2="1032" class="w"/>
+<text x="60" y="1040" class="sm" text-anchor="start">PD2, внутренняя подтяжка; дребезг — 5 кадров</text>
+<text x="1080" y="130" class="h" text-anchor="start">Лента WS2812</text>
+<rect x="1060" y="150" width="90" height="140" rx="0" class="c"/>
+<circle cx="1140" cy="185.0" r="3" class="c"/>
+<line x1="1143" y1="185.0" x2="1150" y2="185.0" class="w"/>
+<text x="1070" y="189.0" class="t" text-anchor="start">1</text>
+<text x="1084" y="189.0" class="v" text-anchor="start">+5V</text>
+<circle cx="1140" cy="220.0" r="3" class="c"/>
+<line x1="1143" y1="220.0" x2="1150" y2="220.0" class="w"/>
+<text x="1070" y="224.0" class="t" text-anchor="start">2</text>
+<text x="1084" y="224.0" class="v" text-anchor="start">DATA</text>
+<circle cx="1140" cy="255.0" r="3" class="c"/>
+<line x1="1143" y1="255.0" x2="1150" y2="255.0" class="w"/>
+<text x="1070" y="259.0" class="t" text-anchor="start">3</text>
+<text x="1084" y="259.0" class="v" text-anchor="start">GND</text>
+<line x1="1150" y1="185.0" x2="1210" y2="185.0" class="w"/>
+<circle cx="1215" cy="185.0" r="3" class="jo"/>
+<text x="1223" y="189.0" class="n" text-anchor="start">5V_STRIP</text>
+<line x1="1150" y1="220.0" x2="1210" y2="220.0" class="w"/>
+<circle cx="1215" cy="220.0" r="3" class="jo"/>
+<text x="1223" y="224.0" class="n" text-anchor="start">DATA</text>
+<line x1="1150" y1="255.0" x2="1210" y2="255.0" class="w"/>
+<line x1="1210" y1="255.0" x2="1210" y2="265.0" class="w"/>
+<line x1="1201" y1="265.0" x2="1219" y2="265.0" class="w"/>
+<line x1="1205" y1="269.0" x2="1215" y2="269.0" class="w"/>
+<line x1="1208.5" y1="273.0" x2="1211.5" y2="273.0" class="w"/>
+<line x1="1200" y1="185.0" x2="1200" y2="195.0" class="w"/>
+<line x1="1200" y1="196.0" x2="1200" y2="207.0" class="w"/>
+<line x1="1192" y1="207.0" x2="1208" y2="207.0" class="w"/>
+<line x1="1192" y1="213.0" x2="1208" y2="213.0" class="w"/>
+<line x1="1200" y1="213.0" x2="1200" y2="224.0" class="w"/>
+<text x="1212" y="214.0" class="t" text-anchor="start">C28 1000 мкФ</text>
+<line x1="1200" y1="224.0" x2="1200" y2="234.0" class="w"/>
+<line x1="1191" y1="234.0" x2="1209" y2="234.0" class="w"/>
+<line x1="1195" y1="238.0" x2="1205" y2="238.0" class="w"/>
+<line x1="1198.5" y1="242.0" x2="1201.5" y2="242.0" class="w"/>
+<text x="1060" y="320" class="sm" text-anchor="start">конденсатор — у разъёма ленты</text>
+<text x="1080" y="400" class="h" text-anchor="start">Питание АЦП</text>
+<line x1="1060" y1="430" x2="1060" y2="418" class="w"/>
+<line x1="1052" y1="418" x2="1068" y2="418" class="w"/>
+<text x="1060" y="412" class="v" text-anchor="middle">+5 В</text>
+<line x1="1060" y1="430" x2="1080" y2="430" class="w"/>
+<line x1="1080" y1="430" x2="1100" y2="430" class="w"/>
+<path d="M 1100 430 q 4 -10 8 0 q 4 -10 8 0 q 4 -10 8 0" class="w" fill="none"/>
+<text x="1112" y="410" class="t" text-anchor="middle">L1 10 мкГн</text>
+<line x1="1124" y1="430" x2="1140" y2="430" class="w"/>
+<line x1="1140" y1="430" x2="1140" y2="450" class="w"/>
+<circle cx="1150" cy="450" r="3" class="jo"/>
+<text x="1158" y="454" class="n" text-anchor="start">AVCC</text>
+<line x1="1140" y1="430" x2="1200" y2="430" class="w"/>
+<line x1="1200" y1="430" x2="1200" y2="450" class="w"/>
+<line x1="1200" y1="451" x2="1200" y2="462" class="w"/>
+<line x1="1192" y1="462" x2="1208" y2="462" class="w"/>
+<line x1="1192" y1="468" x2="1208" y2="468" class="w"/>
+<line x1="1200" y1="468" x2="1200" y2="479" class="w"/>
+<text x="1212" y="469" class="t" text-anchor="start">C33 100 нФ</text>
+<line x1="1200" y1="479" x2="1200" y2="489" class="w"/>
+<line x1="1191" y1="489" x2="1209" y2="489" class="w"/>
+<line x1="1195" y1="493" x2="1205" y2="493" class="w"/>
+<line x1="1198.5" y1="497" x2="1201.5" y2="497" class="w"/>
+<line x1="1260" y1="430" x2="1260" y2="450" class="w"/>
+<line x1="1260" y1="451" x2="1260" y2="462" class="w"/>
+<line x1="1252" y1="462" x2="1268" y2="462" class="w"/>
+<line x1="1252" y1="468" x2="1268" y2="468" class="w"/>
+<line x1="1260" y1="468" x2="1260" y2="479" class="w"/>
+<text x="1272" y="469" class="t" text-anchor="start">C34 10 мкФ</text>
+<line x1="1260" y1="479" x2="1260" y2="489" class="w"/>
+<line x1="1251" y1="489" x2="1269" y2="489" class="w"/>
+<line x1="1255" y1="493" x2="1265" y2="493" class="w"/>
+<line x1="1258.5" y1="497" x2="1261.5" y2="497" class="w"/>
+<line x1="1200" y1="430" x2="1260" y2="430" class="w"/>
+<text x="1080" y="520" class="sm" text-anchor="start">C34 — электролит, C33 — керамика</text>
+<text x="1080" y="590" class="h" text-anchor="start">Развязка +5 В</text>
+<line x1="1060" y1="620" x2="1060" y2="608" class="w"/>
+<line x1="1052" y1="608" x2="1068" y2="608" class="w"/>
+<text x="1060" y="602" class="v" text-anchor="middle">+5 В</text>
+<line x1="1060" y1="620" x2="1240" y2="620" class="w"/>
+<line x1="1140" y1="620" x2="1140" y2="640" class="w"/>
+<line x1="1140" y1="641" x2="1140" y2="652" class="w"/>
+<line x1="1132" y1="652" x2="1148" y2="652" class="w"/>
+<line x1="1132" y1="658" x2="1148" y2="658" class="w"/>
+<line x1="1140" y1="658" x2="1140" y2="669" class="w"/>
+<text x="1152" y="659" class="t" text-anchor="start">C36 100 нФ</text>
+<line x1="1140" y1="669" x2="1140" y2="679" class="w"/>
+<line x1="1131" y1="679" x2="1149" y2="679" class="w"/>
+<line x1="1135" y1="683" x2="1145" y2="683" class="w"/>
+<line x1="1138.5" y1="687" x2="1141.5" y2="687" class="w"/>
+<line x1="1200" y1="620" x2="1200" y2="640" class="w"/>
+<line x1="1200" y1="641" x2="1200" y2="652" class="w"/>
+<line x1="1192" y1="652" x2="1208" y2="652" class="w"/>
+<line x1="1192" y1="658" x2="1208" y2="658" class="w"/>
+<line x1="1200" y1="658" x2="1200" y2="669" class="w"/>
+<text x="1212" y="659" class="t" text-anchor="start">C37 10 мкФ</text>
+<line x1="1200" y1="669" x2="1200" y2="679" class="w"/>
+<line x1="1191" y1="679" x2="1209" y2="679" class="w"/>
+<line x1="1195" y1="683" x2="1205" y2="683" class="w"/>
+<line x1="1198.5" y1="687" x2="1201.5" y2="687" class="w"/>
+<text x="1080" y="720" class="sm" text-anchor="start">C36, C37 — у выводов 10/11 МК</text>
+<text x="40" y="1060" class="h" text-anchor="start">Примечания</text>
+<text x="40" y="1088" class="sm" text-anchor="start">Тактовый кварц 16 МГц: lfuse = 0xFF (внешний кварц 8–16 МГц, BOD 4.0 В), hfuse = 0xCF (JTAG off, SPIEN on, CKOPT=0).</text>
+<text x="40" y="1108" class="sm" text-anchor="start">PB0 → R44 330 Ом → DATA; J6 — разъём ленты (DATA, GND); +5 В 10 А — J3 (5.08 мм) → 5V_STRIP напрямую; при токе >3 А +5 В ленты не через J6.</text>
+<text x="40" y="1128" class="sm" text-anchor="start">PA0..PA2 — входы АЦП от листа 2 (ADC0..ADC2); AREF — 100 нФ на GND; AVCC — через L1.</text>
+<text x="40" y="1148" class="sm" text-anchor="start">PD2 — кнопка на GND, внутренняя подтяжка; переключает режимы 0 → 1 → 2 → 3 → 0.</text>
+<text x="40" y="1168" class="sm" text-anchor="start">ISP: MISO=PB6, MOSI=PB5, SCK=PB7, RESET; 6-контактный разъём J4.</text>
+<text x="40" y="1188" class="sm" text-anchor="start">Неиспользуемые PA3..PA7, PB1..PB4, PC0..PC7, PD0/PD1/PD3..PD7 — в воздухе.</text>
+</svg>

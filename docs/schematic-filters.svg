@@ -1,0 +1,528 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1300 1180" width="1300" height="1180">
+<style>
+.w{stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.nw{stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-dasharray:4 3}
+.c{stroke:currentColor;fill:none;stroke-width:1.5;stroke-linejoin:round}
+.p{stroke:currentColor;fill:none;stroke-width:2;stroke-linejoin:round}
+.j{fill:currentColor;stroke:none}
+.jo{fill:none;stroke:currentColor;stroke-width:1.5}
+.t{fill:currentColor;font-family:sans-serif;font-size:12px}
+.v{fill:var(--muted);font-family:sans-serif;font-size:11px}
+.r{fill:var(--accent);font-family:sans-serif;font-size:9px}
+.h{fill:currentColor;font-family:sans-serif;font-size:15px;font-weight:600}
+.ttl{fill:currentColor;font-family:sans-serif;font-size:22px}
+.sub{fill:var(--muted);font-family:sans-serif;font-size:13px}
+.sm{fill:var(--muted);font-family:sans-serif;font-size:10.5px}
+.n{fill:var(--accent);font-family:sans-serif;font-size:12px}
+.pl{fill:var(--accent);font-family:sans-serif;font-size:12px;font-weight:600}
+.nt{fill:currentColor;font-family:sans-serif;font-size:13px}
+</style>
+<text x="40" y="50" class="ttl" text-anchor="start">Цветомузыка WS2812 — фильтры и детекторы</text>
+<text x="40" y="76" class="sub" text-anchor="start">Лист 2 из 3: три полосовых фильтра MFB, точные пиковые детекторы, усилители к АЦП</text>
+<text x="40" y="180" class="h" text-anchor="start">НИЗ 100…202 Гц (R)</text>
+<circle cx="40" cy="260" r="3" class="jo"/>
+<text x="48" y="264" class="n" text-anchor="start">SIG</text>
+<line x1="50" y1="260" x2="60" y2="260" class="w"/>
+<line x1="60" y1="260" x2="70" y2="260" class="w"/>
+<rect x="70" y="253" width="40" height="14" rx="0" class="c"/>
+<line x1="110" y1="260" x2="120" y2="260" class="w"/>
+<text x="90" y="247" class="t" text-anchor="middle">R14 33k</text>
+<line x1="120" y1="260" x2="140" y2="260" class="w"/>
+<circle cx="160" cy="260" r="3.2" class="j"/>
+<line x1="140" y1="260" x2="160" y2="260" class="w"/>
+<line x1="160" y1="260" x2="171" y2="260" class="w"/>
+<line x1="171" y1="252" x2="171" y2="268" class="w"/>
+<line x1="177" y1="252" x2="177" y2="268" class="w"/>
+<line x1="177" y1="260" x2="188" y2="260" class="w"/>
+<text x="174" y="245" class="t" text-anchor="middle">C12 100 нФ</text>
+<line x1="188" y1="260" x2="210" y2="260" class="w"/>
+<line x1="210" y1="260" x2="210" y2="225" class="w"/>
+<line x1="210" y1="225" x2="235" y2="225" class="w"/>
+<line x1="235" y1="225" x2="235" y2="249" class="w"/>
+<line x1="160" y1="270" x2="160" y2="280" class="w"/>
+<rect x="153" y="280" width="14" height="40" rx="0" class="c"/>
+<line x1="160" y1="320" x2="160" y2="330" class="w"/>
+<text x="147" y="304" class="t" text-anchor="end">R15 6.8k</text>
+<line x1="160" y1="260" x2="160" y2="270" class="w"/>
+<line x1="160" y1="330" x2="160" y2="340" class="w"/>
+<circle cx="160" cy="345" r="3" class="jo"/>
+<text x="152" y="349" class="n" text-anchor="end">2V5</text>
+<path d="M 235 220 L 235 300 L 295 260" class="c"/>
+<text x="265" y="212" class="t" text-anchor="middle">U1B</text>
+<text x="243" y="249" class="t" text-anchor="middle">−</text>
+<text x="243" y="279" class="t" text-anchor="middle">+</text>
+<text x="229" y="241" class="r" text-anchor="end">6</text>
+<text x="229" y="271" class="r" text-anchor="end">5</text>
+<text x="301" y="254" class="r" text-anchor="start">7</text>
+<line x1="235" y1="275" x2="220" y2="275" class="w"/>
+<circle cx="216" cy="275" r="3" class="jo"/>
+<text x="208" y="279" class="n" text-anchor="end">2V5</text>
+<line x1="295" y1="260" x2="315" y2="260" class="w"/>
+<line x1="315" y1="260" x2="315" y2="160" class="w"/>
+<line x1="315" y1="160" x2="210" y2="160" class="w"/>
+<line x1="210" y1="160" x2="210" y2="225" class="w"/>
+<line x1="210" y1="160" x2="210" y2="195" class="w"/>
+<line x1="210" y1="195" x2="220" y2="195" class="w"/>
+<line x1="220" y1="195" x2="230" y2="195" class="w"/>
+<rect x="230" y="188" width="40" height="14" rx="0" class="c"/>
+<line x1="270" y1="195" x2="280" y2="195" class="w"/>
+<text x="250" y="182" class="t" text-anchor="middle">R16 33k</text>
+<line x1="236" y1="160" x2="247" y2="160" class="w"/>
+<line x1="247" y1="152" x2="247" y2="168" class="w"/>
+<line x1="253" y1="152" x2="253" y2="168" class="w"/>
+<line x1="253" y1="160" x2="264" y2="160" class="w"/>
+<text x="250" y="145" class="t" text-anchor="middle">C13 100 нФ</text>
+<line x1="280" y1="195" x2="315" y2="195" class="w"/>
+<line x1="315" y1="260" x2="340" y2="260" class="w"/>
+<circle cx="345" cy="260" r="3" class="jo"/>
+<text x="353" y="264" class="n" text-anchor="start">LOW</text>
+<line x1="340" y1="260" x2="440" y2="260" class="w"/>
+<line x1="440" y1="260" x2="440" y2="275" class="w"/>
+<line x1="440" y1="275" x2="470" y2="275" class="w"/>
+<text x="470" y="170" class="sm" text-anchor="start">Пиковый детектор</text>
+<path d="M 470 220 L 470 300 L 530 260" class="c"/>
+<text x="500" y="212" class="t" text-anchor="middle">U2A</text>
+<text x="478" y="249" class="t" text-anchor="middle">−</text>
+<text x="478" y="279" class="t" text-anchor="middle">+</text>
+<text x="464" y="241" class="r" text-anchor="end">2</text>
+<text x="464" y="271" class="r" text-anchor="end">3</text>
+<text x="536" y="254" class="r" text-anchor="start">1</text>
+<line x1="530" y1="260" x2="540" y2="260" class="w"/>
+<line x1="540" y1="260" x2="550" y2="260" class="w"/>
+<rect x="550" y="253" width="40" height="14" rx="0" class="c"/>
+<line x1="590" y1="260" x2="600" y2="260" class="w"/>
+<text x="570" y="247" class="t" text-anchor="middle">R17 100</text>
+<line x1="600" y1="260" x2="610" y2="260" class="w"/>
+<line x1="610" y1="260" x2="623.0" y2="260" class="w"/>
+<path d="M 623.0 252 L 623.0 268 L 637.0 260" class="c"/>
+<line x1="637.0" y1="252" x2="637.0" y2="268" class="w"/>
+<line x1="637.0" y1="260" x2="650" y2="260" class="w"/>
+<text x="630" y="251" class="t" text-anchor="middle">D2 1N4148</text>
+<line x1="650" y1="260" x2="690" y2="260" class="w"/>
+<line x1="470" y1="245" x2="470" y2="190" class="w"/>
+<line x1="470" y1="190" x2="690" y2="190" class="w"/>
+<line x1="690" y1="190" x2="690" y2="260" class="w"/>
+<circle cx="690" cy="260" r="3.2" class="j"/>
+<line x1="690" y1="260" x2="690" y2="271" class="w"/>
+<line x1="690" y1="271" x2="690" y2="282" class="w"/>
+<line x1="682" y1="282" x2="698" y2="282" class="w"/>
+<line x1="682" y1="288" x2="698" y2="288" class="w"/>
+<line x1="690" y1="288" x2="690" y2="299" class="w"/>
+<text x="678" y="289" class="t" text-anchor="end">C14 1 мкФ</text>
+<line x1="690" y1="299" x2="690" y2="309" class="w"/>
+<line x1="681" y1="309" x2="699" y2="309" class="w"/>
+<line x1="685" y1="313" x2="695" y2="313" class="w"/>
+<line x1="688.5" y1="317" x2="691.5" y2="317" class="w"/>
+<line x1="690" y1="260" x2="720" y2="260" class="w"/>
+<line x1="720" y1="260" x2="720" y2="270" class="w"/>
+<line x1="720" y1="270" x2="720" y2="280" class="w"/>
+<rect x="713" y="280" width="14" height="40" rx="0" class="c"/>
+<line x1="720" y1="320" x2="720" y2="330" class="w"/>
+<text x="733" y="304" class="t" text-anchor="start">R18 220k</text>
+<line x1="720" y1="330" x2="720" y2="340" class="w"/>
+<circle cx="720" cy="348" r="3" class="jo"/>
+<text x="728" y="352" class="n" text-anchor="start">2V5</text>
+<line x1="690" y1="260" x2="760" y2="260" class="w"/>
+<circle cx="765" cy="260" r="3" class="jo"/>
+<text x="773" y="264" class="n" text-anchor="start">P_L</text>
+<text x="860" y="170" class="sm" text-anchor="start">К АЦП: (P−2.5)×6.8</text>
+<line x1="760" y1="260" x2="780" y2="260" class="w"/>
+<line x1="780" y1="260" x2="780" y2="275" class="w"/>
+<line x1="780" y1="275" x2="840" y2="275" class="w"/>
+<circle cx="774" cy="245" r="3" class="jo"/>
+<text x="782" y="249" class="n" text-anchor="start">2V5</text>
+<line x1="774" y1="245" x2="820" y2="245" class="w"/>
+<line x1="820" y1="245" x2="830" y2="245" class="w"/>
+<rect x="830" y="238" width="40" height="14" rx="0" class="c"/>
+<line x1="870" y1="245" x2="880" y2="245" class="w"/>
+<text x="850" y="232" class="t" text-anchor="middle">R19 1M</text>
+<line x1="880" y1="245" x2="950" y2="245" class="w"/>
+<path d="M 950 220 L 950 300 L 1010 260" class="c"/>
+<text x="980" y="212" class="t" text-anchor="middle">U3A</text>
+<text x="958" y="249" class="t" text-anchor="middle">−</text>
+<text x="958" y="279" class="t" text-anchor="middle">+</text>
+<text x="944" y="241" class="r" text-anchor="end">2</text>
+<text x="944" y="271" class="r" text-anchor="end">3</text>
+<text x="1016" y="254" class="r" text-anchor="start">1</text>
+<line x1="950" y1="245" x2="950" y2="200" class="w"/>
+<line x1="950" y1="200" x2="1010" y2="200" class="w"/>
+<line x1="1010" y1="200" x2="1010" y2="260" class="w"/>
+<line x1="950" y1="200" x2="960" y2="200" class="w"/>
+<rect x="960" y="193" width="40" height="14" rx="0" class="c"/>
+<line x1="1000" y1="200" x2="1010" y2="200" class="w"/>
+<text x="980" y="187" class="t" text-anchor="middle">R22 6.8M</text>
+<line x1="950" y1="275" x2="900" y2="275" class="w"/>
+<line x1="840" y1="275" x2="850" y2="275" class="w"/>
+<rect x="850" y="268" width="40" height="14" rx="0" class="c"/>
+<line x1="890" y1="275" x2="900" y2="275" class="w"/>
+<text x="870" y="262" class="t" text-anchor="middle">R20 1M</text>
+<circle cx="900" cy="275" r="3.2" class="j"/>
+<line x1="900" y1="275" x2="900" y2="285" class="w"/>
+<rect x="893" y="285" width="14" height="40" rx="0" class="c"/>
+<line x1="900" y1="325" x2="900" y2="335" class="w"/>
+<text x="913" y="309" class="t" text-anchor="start">R21 6.8M</text>
+<line x1="900" y1="335" x2="900" y2="340" class="w"/>
+<line x1="900" y1="340" x2="900" y2="350" class="w"/>
+<line x1="891" y1="350" x2="909" y2="350" class="w"/>
+<line x1="895" y1="354" x2="905" y2="354" class="w"/>
+<line x1="898.5" y1="358" x2="901.5" y2="358" class="w"/>
+<line x1="1010" y1="260" x2="1040" y2="260" class="w"/>
+<circle cx="1010" cy="260" r="3.2" class="j"/>
+<line x1="1040" y1="260" x2="1050" y2="260" class="w"/>
+<rect x="1050" y="253" width="40" height="14" rx="0" class="c"/>
+<line x1="1090" y1="260" x2="1100" y2="260" class="w"/>
+<text x="1070" y="247" class="t" text-anchor="middle">R23 1k</text>
+<line x1="1100" y1="260" x2="1130" y2="260" class="w"/>
+<circle cx="1135" cy="260" r="3" class="jo"/>
+<text x="1143" y="264" class="n" text-anchor="start">ADC0</text>
+<line x1="1130" y1="260" x2="1130" y2="270" class="w"/>
+<line x1="1130" y1="271" x2="1130" y2="282" class="w"/>
+<line x1="1122" y1="282" x2="1138" y2="282" class="w"/>
+<line x1="1122" y1="288" x2="1138" y2="288" class="w"/>
+<line x1="1130" y1="288" x2="1130" y2="299" class="w"/>
+<text x="1142" y="289" class="t" text-anchor="start">C15 100 нФ</text>
+<line x1="1130" y1="299" x2="1130" y2="309" class="w"/>
+<line x1="1121" y1="309" x2="1139" y2="309" class="w"/>
+<line x1="1125" y1="313" x2="1135" y2="313" class="w"/>
+<line x1="1128.5" y1="317" x2="1131.5" y2="317" class="w"/>
+<text x="40" y="540" class="h" text-anchor="start">СРЕД 3.5…6.5 кГц (G)</text>
+<circle cx="40" cy="620" r="3" class="jo"/>
+<text x="48" y="624" class="n" text-anchor="start">SIG</text>
+<line x1="50" y1="620" x2="60" y2="620" class="w"/>
+<line x1="60" y1="620" x2="70" y2="620" class="w"/>
+<rect x="70" y="613" width="40" height="14" rx="0" class="c"/>
+<line x1="110" y1="620" x2="120" y2="620" class="w"/>
+<text x="90" y="607" class="t" text-anchor="middle">R24 11k</text>
+<line x1="120" y1="620" x2="140" y2="620" class="w"/>
+<circle cx="160" cy="620" r="3.2" class="j"/>
+<line x1="140" y1="620" x2="160" y2="620" class="w"/>
+<line x1="160" y1="620" x2="171" y2="620" class="w"/>
+<line x1="171" y1="612" x2="171" y2="628" class="w"/>
+<line x1="177" y1="612" x2="177" y2="628" class="w"/>
+<line x1="177" y1="620" x2="188" y2="620" class="w"/>
+<text x="174" y="605" class="t" text-anchor="middle">C16 10 нФ</text>
+<line x1="188" y1="620" x2="210" y2="620" class="w"/>
+<line x1="210" y1="620" x2="210" y2="585" class="w"/>
+<line x1="210" y1="585" x2="235" y2="585" class="w"/>
+<line x1="235" y1="585" x2="235" y2="609" class="w"/>
+<line x1="160" y1="630" x2="160" y2="640" class="w"/>
+<rect x="153" y="640" width="14" height="40" rx="0" class="c"/>
+<line x1="160" y1="680" x2="160" y2="690" class="w"/>
+<text x="147" y="664" class="t" text-anchor="end">R25 1.1k</text>
+<line x1="160" y1="620" x2="160" y2="630" class="w"/>
+<line x1="160" y1="690" x2="160" y2="700" class="w"/>
+<circle cx="160" cy="705" r="3" class="jo"/>
+<text x="152" y="709" class="n" text-anchor="end">2V5</text>
+<path d="M 235 580 L 235 660 L 295 620" class="c"/>
+<text x="265" y="572" class="t" text-anchor="middle">U1C</text>
+<text x="243" y="609" class="t" text-anchor="middle">−</text>
+<text x="243" y="639" class="t" text-anchor="middle">+</text>
+<text x="229" y="601" class="r" text-anchor="end">9</text>
+<text x="229" y="631" class="r" text-anchor="end">10</text>
+<text x="301" y="614" class="r" text-anchor="start">8</text>
+<line x1="235" y1="635" x2="220" y2="635" class="w"/>
+<circle cx="216" cy="635" r="3" class="jo"/>
+<text x="208" y="639" class="n" text-anchor="end">2V5</text>
+<line x1="295" y1="620" x2="315" y2="620" class="w"/>
+<line x1="315" y1="620" x2="315" y2="520" class="w"/>
+<line x1="315" y1="520" x2="210" y2="520" class="w"/>
+<line x1="210" y1="520" x2="210" y2="585" class="w"/>
+<line x1="210" y1="520" x2="210" y2="555" class="w"/>
+<line x1="210" y1="555" x2="220" y2="555" class="w"/>
+<line x1="220" y1="555" x2="230" y2="555" class="w"/>
+<rect x="230" y="548" width="40" height="14" rx="0" class="c"/>
+<line x1="270" y1="555" x2="280" y2="555" class="w"/>
+<text x="250" y="542" class="t" text-anchor="middle">R26 27k</text>
+<line x1="236" y1="520" x2="247" y2="520" class="w"/>
+<line x1="247" y1="512" x2="247" y2="528" class="w"/>
+<line x1="253" y1="512" x2="253" y2="528" class="w"/>
+<line x1="253" y1="520" x2="264" y2="520" class="w"/>
+<text x="250" y="505" class="t" text-anchor="middle">C17 10 нФ</text>
+<line x1="280" y1="555" x2="315" y2="555" class="w"/>
+<line x1="315" y1="620" x2="340" y2="620" class="w"/>
+<circle cx="345" cy="620" r="3" class="jo"/>
+<text x="353" y="624" class="n" text-anchor="start">MID</text>
+<line x1="340" y1="620" x2="440" y2="620" class="w"/>
+<line x1="440" y1="620" x2="440" y2="635" class="w"/>
+<line x1="440" y1="635" x2="470" y2="635" class="w"/>
+<text x="470" y="530" class="sm" text-anchor="start">Пиковый детектор</text>
+<path d="M 470 580 L 470 660 L 530 620" class="c"/>
+<text x="500" y="572" class="t" text-anchor="middle">U2B</text>
+<text x="478" y="609" class="t" text-anchor="middle">−</text>
+<text x="478" y="639" class="t" text-anchor="middle">+</text>
+<text x="464" y="601" class="r" text-anchor="end">6</text>
+<text x="464" y="631" class="r" text-anchor="end">5</text>
+<text x="536" y="614" class="r" text-anchor="start">7</text>
+<line x1="530" y1="620" x2="540" y2="620" class="w"/>
+<line x1="540" y1="620" x2="550" y2="620" class="w"/>
+<rect x="550" y="613" width="40" height="14" rx="0" class="c"/>
+<line x1="590" y1="620" x2="600" y2="620" class="w"/>
+<text x="570" y="607" class="t" text-anchor="middle">R27 100</text>
+<line x1="600" y1="620" x2="610" y2="620" class="w"/>
+<line x1="610" y1="620" x2="623.0" y2="620" class="w"/>
+<path d="M 623.0 612 L 623.0 628 L 637.0 620" class="c"/>
+<line x1="637.0" y1="612" x2="637.0" y2="628" class="w"/>
+<line x1="637.0" y1="620" x2="650" y2="620" class="w"/>
+<text x="630" y="611" class="t" text-anchor="middle">D3 1N4148</text>
+<line x1="650" y1="620" x2="690" y2="620" class="w"/>
+<line x1="470" y1="605" x2="470" y2="550" class="w"/>
+<line x1="470" y1="550" x2="690" y2="550" class="w"/>
+<line x1="690" y1="550" x2="690" y2="620" class="w"/>
+<circle cx="690" cy="620" r="3.2" class="j"/>
+<line x1="690" y1="620" x2="690" y2="631" class="w"/>
+<line x1="690" y1="631" x2="690" y2="642" class="w"/>
+<line x1="682" y1="642" x2="698" y2="642" class="w"/>
+<line x1="682" y1="648" x2="698" y2="648" class="w"/>
+<line x1="690" y1="648" x2="690" y2="659" class="w"/>
+<text x="678" y="649" class="t" text-anchor="end">C18 1 мкФ</text>
+<line x1="690" y1="659" x2="690" y2="669" class="w"/>
+<line x1="681" y1="669" x2="699" y2="669" class="w"/>
+<line x1="685" y1="673" x2="695" y2="673" class="w"/>
+<line x1="688.5" y1="677" x2="691.5" y2="677" class="w"/>
+<line x1="690" y1="620" x2="720" y2="620" class="w"/>
+<line x1="720" y1="620" x2="720" y2="630" class="w"/>
+<line x1="720" y1="630" x2="720" y2="640" class="w"/>
+<rect x="713" y="640" width="14" height="40" rx="0" class="c"/>
+<line x1="720" y1="680" x2="720" y2="690" class="w"/>
+<text x="733" y="664" class="t" text-anchor="start">R28 220k</text>
+<line x1="720" y1="690" x2="720" y2="700" class="w"/>
+<circle cx="720" cy="708" r="3" class="jo"/>
+<text x="728" y="712" class="n" text-anchor="start">2V5</text>
+<line x1="690" y1="620" x2="760" y2="620" class="w"/>
+<circle cx="765" cy="620" r="3" class="jo"/>
+<text x="773" y="624" class="n" text-anchor="start">P_M</text>
+<text x="860" y="530" class="sm" text-anchor="start">К АЦП: (P−2.5)×6.8</text>
+<line x1="760" y1="620" x2="780" y2="620" class="w"/>
+<line x1="780" y1="620" x2="780" y2="635" class="w"/>
+<line x1="780" y1="635" x2="840" y2="635" class="w"/>
+<circle cx="774" cy="605" r="3" class="jo"/>
+<text x="782" y="609" class="n" text-anchor="start">2V5</text>
+<line x1="774" y1="605" x2="820" y2="605" class="w"/>
+<line x1="820" y1="605" x2="830" y2="605" class="w"/>
+<rect x="830" y="598" width="40" height="14" rx="0" class="c"/>
+<line x1="870" y1="605" x2="880" y2="605" class="w"/>
+<text x="850" y="592" class="t" text-anchor="middle">R29 1M</text>
+<line x1="880" y1="605" x2="950" y2="605" class="w"/>
+<path d="M 950 580 L 950 660 L 1010 620" class="c"/>
+<text x="980" y="572" class="t" text-anchor="middle">U3B</text>
+<text x="958" y="609" class="t" text-anchor="middle">−</text>
+<text x="958" y="639" class="t" text-anchor="middle">+</text>
+<text x="944" y="601" class="r" text-anchor="end">6</text>
+<text x="944" y="631" class="r" text-anchor="end">5</text>
+<text x="1016" y="614" class="r" text-anchor="start">7</text>
+<line x1="950" y1="605" x2="950" y2="560" class="w"/>
+<line x1="950" y1="560" x2="1010" y2="560" class="w"/>
+<line x1="1010" y1="560" x2="1010" y2="620" class="w"/>
+<line x1="950" y1="560" x2="960" y2="560" class="w"/>
+<rect x="960" y="553" width="40" height="14" rx="0" class="c"/>
+<line x1="1000" y1="560" x2="1010" y2="560" class="w"/>
+<text x="980" y="547" class="t" text-anchor="middle">R32 6.8M</text>
+<line x1="950" y1="635" x2="900" y2="635" class="w"/>
+<line x1="840" y1="635" x2="850" y2="635" class="w"/>
+<rect x="850" y="628" width="40" height="14" rx="0" class="c"/>
+<line x1="890" y1="635" x2="900" y2="635" class="w"/>
+<text x="870" y="622" class="t" text-anchor="middle">R30 1M</text>
+<circle cx="900" cy="635" r="3.2" class="j"/>
+<line x1="900" y1="635" x2="900" y2="645" class="w"/>
+<rect x="893" y="645" width="14" height="40" rx="0" class="c"/>
+<line x1="900" y1="685" x2="900" y2="695" class="w"/>
+<text x="913" y="669" class="t" text-anchor="start">R31 6.8M</text>
+<line x1="900" y1="695" x2="900" y2="700" class="w"/>
+<line x1="900" y1="700" x2="900" y2="710" class="w"/>
+<line x1="891" y1="710" x2="909" y2="710" class="w"/>
+<line x1="895" y1="714" x2="905" y2="714" class="w"/>
+<line x1="898.5" y1="718" x2="901.5" y2="718" class="w"/>
+<line x1="1010" y1="620" x2="1040" y2="620" class="w"/>
+<circle cx="1010" cy="620" r="3.2" class="j"/>
+<line x1="1040" y1="620" x2="1050" y2="620" class="w"/>
+<rect x="1050" y="613" width="40" height="14" rx="0" class="c"/>
+<line x1="1090" y1="620" x2="1100" y2="620" class="w"/>
+<text x="1070" y="607" class="t" text-anchor="middle">R33 1k</text>
+<line x1="1100" y1="620" x2="1130" y2="620" class="w"/>
+<circle cx="1135" cy="620" r="3" class="jo"/>
+<text x="1143" y="624" class="n" text-anchor="start">ADC1</text>
+<line x1="1130" y1="620" x2="1130" y2="630" class="w"/>
+<line x1="1130" y1="631" x2="1130" y2="642" class="w"/>
+<line x1="1122" y1="642" x2="1138" y2="642" class="w"/>
+<line x1="1122" y1="648" x2="1138" y2="648" class="w"/>
+<line x1="1130" y1="648" x2="1130" y2="659" class="w"/>
+<text x="1142" y="649" class="t" text-anchor="start">C19 100 нФ</text>
+<line x1="1130" y1="659" x2="1130" y2="669" class="w"/>
+<line x1="1121" y1="669" x2="1139" y2="669" class="w"/>
+<line x1="1125" y1="673" x2="1135" y2="673" class="w"/>
+<line x1="1128.5" y1="677" x2="1131.5" y2="677" class="w"/>
+<text x="40" y="900" class="h" text-anchor="start">ВЕРХ 8.4…20.4 кГц (B)</text>
+<circle cx="40" cy="980" r="3" class="jo"/>
+<text x="48" y="984" class="n" text-anchor="start">SIG</text>
+<line x1="50" y1="980" x2="60" y2="980" class="w"/>
+<line x1="60" y1="980" x2="70" y2="980" class="w"/>
+<rect x="70" y="973" width="40" height="14" rx="0" class="c"/>
+<line x1="110" y1="980" x2="120" y2="980" class="w"/>
+<text x="90" y="967" class="t" text-anchor="middle">R34 6.2k</text>
+<line x1="120" y1="980" x2="140" y2="980" class="w"/>
+<circle cx="160" cy="980" r="3.2" class="j"/>
+<line x1="140" y1="980" x2="160" y2="980" class="w"/>
+<line x1="160" y1="980" x2="171" y2="980" class="w"/>
+<line x1="171" y1="972" x2="171" y2="988" class="w"/>
+<line x1="177" y1="972" x2="177" y2="988" class="w"/>
+<line x1="177" y1="980" x2="188" y2="980" class="w"/>
+<text x="174" y="965" class="t" text-anchor="middle">C20 5.6 нФ</text>
+<line x1="188" y1="980" x2="210" y2="980" class="w"/>
+<line x1="210" y1="980" x2="210" y2="945" class="w"/>
+<line x1="210" y1="945" x2="235" y2="945" class="w"/>
+<line x1="235" y1="945" x2="235" y2="969" class="w"/>
+<line x1="160" y1="990" x2="160" y2="1000" class="w"/>
+<rect x="153" y="1000" width="14" height="40" rx="0" class="c"/>
+<line x1="160" y1="1040" x2="160" y2="1050" class="w"/>
+<text x="147" y="1024" class="t" text-anchor="end">R35 1.3k</text>
+<line x1="160" y1="980" x2="160" y2="990" class="w"/>
+<line x1="160" y1="1050" x2="160" y2="1060" class="w"/>
+<circle cx="160" cy="1065" r="3" class="jo"/>
+<text x="152" y="1069" class="n" text-anchor="end">2V5</text>
+<path d="M 235 940 L 235 1020 L 295 980" class="c"/>
+<text x="265" y="932" class="t" text-anchor="middle">U1D</text>
+<text x="243" y="969" class="t" text-anchor="middle">−</text>
+<text x="243" y="999" class="t" text-anchor="middle">+</text>
+<text x="229" y="961" class="r" text-anchor="end">13</text>
+<text x="229" y="991" class="r" text-anchor="end">12</text>
+<text x="301" y="974" class="r" text-anchor="start">14</text>
+<line x1="235" y1="995" x2="220" y2="995" class="w"/>
+<circle cx="216" cy="995" r="3" class="jo"/>
+<text x="208" y="999" class="n" text-anchor="end">2V5</text>
+<line x1="295" y1="980" x2="315" y2="980" class="w"/>
+<line x1="315" y1="980" x2="315" y2="880" class="w"/>
+<line x1="315" y1="880" x2="210" y2="880" class="w"/>
+<line x1="210" y1="880" x2="210" y2="945" class="w"/>
+<line x1="210" y1="880" x2="210" y2="915" class="w"/>
+<line x1="210" y1="915" x2="220" y2="915" class="w"/>
+<line x1="220" y1="915" x2="230" y2="915" class="w"/>
+<rect x="230" y="908" width="40" height="14" rx="0" class="c"/>
+<line x1="270" y1="915" x2="280" y2="915" class="w"/>
+<text x="250" y="902" class="t" text-anchor="middle">R36 6.8k</text>
+<line x1="236" y1="880" x2="247" y2="880" class="w"/>
+<line x1="247" y1="872" x2="247" y2="888" class="w"/>
+<line x1="253" y1="872" x2="253" y2="888" class="w"/>
+<line x1="253" y1="880" x2="264" y2="880" class="w"/>
+<text x="250" y="865" class="t" text-anchor="middle">C21 5.6 нФ</text>
+<line x1="280" y1="915" x2="315" y2="915" class="w"/>
+<line x1="315" y1="980" x2="340" y2="980" class="w"/>
+<circle cx="345" cy="980" r="3" class="jo"/>
+<text x="353" y="984" class="n" text-anchor="start">HIGH</text>
+<line x1="340" y1="980" x2="440" y2="980" class="w"/>
+<line x1="440" y1="980" x2="440" y2="995" class="w"/>
+<line x1="440" y1="995" x2="470" y2="995" class="w"/>
+<text x="470" y="890" class="sm" text-anchor="start">Пиковый детектор</text>
+<path d="M 470 940 L 470 1020 L 530 980" class="c"/>
+<text x="500" y="932" class="t" text-anchor="middle">U2C</text>
+<text x="478" y="969" class="t" text-anchor="middle">−</text>
+<text x="478" y="999" class="t" text-anchor="middle">+</text>
+<text x="464" y="961" class="r" text-anchor="end">9</text>
+<text x="464" y="991" class="r" text-anchor="end">10</text>
+<text x="536" y="974" class="r" text-anchor="start">8</text>
+<line x1="530" y1="980" x2="540" y2="980" class="w"/>
+<line x1="540" y1="980" x2="550" y2="980" class="w"/>
+<rect x="550" y="973" width="40" height="14" rx="0" class="c"/>
+<line x1="590" y1="980" x2="600" y2="980" class="w"/>
+<text x="570" y="967" class="t" text-anchor="middle">R37 100</text>
+<line x1="600" y1="980" x2="610" y2="980" class="w"/>
+<line x1="610" y1="980" x2="623.0" y2="980" class="w"/>
+<path d="M 623.0 972 L 623.0 988 L 637.0 980" class="c"/>
+<line x1="637.0" y1="972" x2="637.0" y2="988" class="w"/>
+<line x1="637.0" y1="980" x2="650" y2="980" class="w"/>
+<text x="630" y="971" class="t" text-anchor="middle">D4 1N4148</text>
+<line x1="650" y1="980" x2="690" y2="980" class="w"/>
+<line x1="470" y1="965" x2="470" y2="910" class="w"/>
+<line x1="470" y1="910" x2="690" y2="910" class="w"/>
+<line x1="690" y1="910" x2="690" y2="980" class="w"/>
+<circle cx="690" cy="980" r="3.2" class="j"/>
+<line x1="690" y1="980" x2="690" y2="991" class="w"/>
+<line x1="690" y1="991" x2="690" y2="1002" class="w"/>
+<line x1="682" y1="1002" x2="698" y2="1002" class="w"/>
+<line x1="682" y1="1008" x2="698" y2="1008" class="w"/>
+<line x1="690" y1="1008" x2="690" y2="1019" class="w"/>
+<text x="678" y="1009" class="t" text-anchor="end">C22 1 мкФ</text>
+<line x1="690" y1="1019" x2="690" y2="1029" class="w"/>
+<line x1="681" y1="1029" x2="699" y2="1029" class="w"/>
+<line x1="685" y1="1033" x2="695" y2="1033" class="w"/>
+<line x1="688.5" y1="1037" x2="691.5" y2="1037" class="w"/>
+<line x1="690" y1="980" x2="720" y2="980" class="w"/>
+<line x1="720" y1="980" x2="720" y2="990" class="w"/>
+<line x1="720" y1="990" x2="720" y2="1000" class="w"/>
+<rect x="713" y="1000" width="14" height="40" rx="0" class="c"/>
+<line x1="720" y1="1040" x2="720" y2="1050" class="w"/>
+<text x="733" y="1024" class="t" text-anchor="start">R38 220k</text>
+<line x1="720" y1="1050" x2="720" y2="1060" class="w"/>
+<circle cx="720" cy="1068" r="3" class="jo"/>
+<text x="728" y="1072" class="n" text-anchor="start">2V5</text>
+<line x1="690" y1="980" x2="760" y2="980" class="w"/>
+<circle cx="765" cy="980" r="3" class="jo"/>
+<text x="773" y="984" class="n" text-anchor="start">P_H</text>
+<text x="860" y="890" class="sm" text-anchor="start">К АЦП: (P−2.5)×6.8</text>
+<line x1="760" y1="980" x2="780" y2="980" class="w"/>
+<line x1="780" y1="980" x2="780" y2="995" class="w"/>
+<line x1="780" y1="995" x2="840" y2="995" class="w"/>
+<circle cx="774" cy="965" r="3" class="jo"/>
+<text x="782" y="969" class="n" text-anchor="start">2V5</text>
+<line x1="774" y1="965" x2="820" y2="965" class="w"/>
+<line x1="820" y1="965" x2="830" y2="965" class="w"/>
+<rect x="830" y="958" width="40" height="14" rx="0" class="c"/>
+<line x1="870" y1="965" x2="880" y2="965" class="w"/>
+<text x="850" y="952" class="t" text-anchor="middle">R39 1M</text>
+<line x1="880" y1="965" x2="950" y2="965" class="w"/>
+<path d="M 950 940 L 950 1020 L 1010 980" class="c"/>
+<text x="980" y="932" class="t" text-anchor="middle">U3C</text>
+<text x="958" y="969" class="t" text-anchor="middle">−</text>
+<text x="958" y="999" class="t" text-anchor="middle">+</text>
+<text x="944" y="961" class="r" text-anchor="end">9</text>
+<text x="944" y="991" class="r" text-anchor="end">10</text>
+<text x="1016" y="974" class="r" text-anchor="start">8</text>
+<line x1="950" y1="965" x2="950" y2="920" class="w"/>
+<line x1="950" y1="920" x2="1010" y2="920" class="w"/>
+<line x1="1010" y1="920" x2="1010" y2="980" class="w"/>
+<line x1="950" y1="920" x2="960" y2="920" class="w"/>
+<rect x="960" y="913" width="40" height="14" rx="0" class="c"/>
+<line x1="1000" y1="920" x2="1010" y2="920" class="w"/>
+<text x="980" y="907" class="t" text-anchor="middle">R42 6.8M</text>
+<line x1="950" y1="995" x2="900" y2="995" class="w"/>
+<line x1="840" y1="995" x2="850" y2="995" class="w"/>
+<rect x="850" y="988" width="40" height="14" rx="0" class="c"/>
+<line x1="890" y1="995" x2="900" y2="995" class="w"/>
+<text x="870" y="982" class="t" text-anchor="middle">R40 1M</text>
+<circle cx="900" cy="995" r="3.2" class="j"/>
+<line x1="900" y1="995" x2="900" y2="1005" class="w"/>
+<rect x="893" y="1005" width="14" height="40" rx="0" class="c"/>
+<line x1="900" y1="1045" x2="900" y2="1055" class="w"/>
+<text x="913" y="1029" class="t" text-anchor="start">R41 6.8M</text>
+<line x1="900" y1="1055" x2="900" y2="1060" class="w"/>
+<line x1="900" y1="1060" x2="900" y2="1070" class="w"/>
+<line x1="891" y1="1070" x2="909" y2="1070" class="w"/>
+<line x1="895" y1="1074" x2="905" y2="1074" class="w"/>
+<line x1="898.5" y1="1078" x2="901.5" y2="1078" class="w"/>
+<line x1="1010" y1="980" x2="1040" y2="980" class="w"/>
+<circle cx="1010" cy="980" r="3.2" class="j"/>
+<line x1="1040" y1="980" x2="1050" y2="980" class="w"/>
+<rect x="1050" y="973" width="40" height="14" rx="0" class="c"/>
+<line x1="1090" y1="980" x2="1100" y2="980" class="w"/>
+<text x="1070" y="967" class="t" text-anchor="middle">R43 1k</text>
+<line x1="1100" y1="980" x2="1130" y2="980" class="w"/>
+<circle cx="1135" cy="980" r="3" class="jo"/>
+<text x="1143" y="984" class="n" text-anchor="start">ADC2</text>
+<line x1="1130" y1="980" x2="1130" y2="990" class="w"/>
+<line x1="1130" y1="991" x2="1130" y2="1002" class="w"/>
+<line x1="1122" y1="1002" x2="1138" y2="1002" class="w"/>
+<line x1="1122" y1="1008" x2="1138" y2="1008" class="w"/>
+<line x1="1130" y1="1008" x2="1130" y2="1019" class="w"/>
+<text x="1142" y="1009" class="t" text-anchor="start">C23 100 нФ</text>
+<line x1="1130" y1="1019" x2="1130" y2="1029" class="w"/>
+<line x1="1121" y1="1029" x2="1139" y2="1029" class="w"/>
+<line x1="1125" y1="1033" x2="1135" y2="1033" class="w"/>
+<line x1="1128.5" y1="1037" x2="1131.5" y2="1037" class="w"/>
+<text x="40" y="1105" class="sm" text-anchor="start">Примечания</text>
+<text x="40" y="1130" class="sm" text-anchor="start">Фильтры — MFB (multiple feedback); f0 = 150 / 5430 / 13840 Гц, C1 = C2.</text>
+<text x="40" y="1150" class="sm" text-anchor="start">R2 и «+» вход — на 2.5 В; вход фильтра — SIG (лист 1), выход — LOW/MID/HIGH.</text>
+<text x="40" y="1170" class="sm" text-anchor="start">Детектор: точный пиковый на ОУ (диод в петле, падение скомпенсировано);</text>
+<text x="40" y="1190" class="sm" text-anchor="start">C14/C18/C22 1 мкФ, R18/R28/R38 220k: спад ≈170 мс; холостой уровень 2.5 В.</text>
+<text x="40" y="1210" class="sm" text-anchor="start">Дифф. усилитель: (P−2.5)×6.8 (6.8M/1M), опора 2.5 В; 1k + 100 нФ на входе АЦП.</text>
+<text x="40" y="1230" class="sm" text-anchor="start">MCP6004: 5 В, pin 4 = +5 В, pin 11 = GND; свободный U2D — повторитель 2.5 В (лист 1).</text>
+<text x="40" y="1250" class="sm" text-anchor="start">U1B/C/D — фильтры; U2A/B/C — детекторы; U3A/B/C — дифф. усилители.</text>
+</svg>

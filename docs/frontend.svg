@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 330" width="900" height="330" font-family="sans-serif">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+    </marker>
+  </defs>
+  <g fill="none" stroke="currentColor" stroke-width="1.5">
+    <rect x="20" y="135" width="90" height="60" rx="6"/>
+    <rect x="145" y="135" width="130" height="60" rx="6"/>
+    <rect x="310" y="135" width="100" height="60" rx="6"/>
+    <rect x="445" y="135" width="80" height="60" rx="6"/>
+    <rect x="560" y="35" width="130" height="60" rx="6"/>
+    <rect x="560" y="135" width="130" height="60" rx="6"/>
+    <rect x="560" y="235" width="130" height="60" rx="6"/>
+    <rect x="730" y="35" width="110" height="60" rx="6"/>
+    <rect x="730" y="135" width="110" height="60" rx="6"/>
+    <rect x="730" y="235" width="110" height="60" rx="6"/>
+    <rect x="865" y="135" width="25" height="60" rx="6"/>
+
+    <path d="M110,165 H145" marker-end="url(#a)"/>
+    <path d="M275,165 H310" marker-end="url(#a)"/>
+    <path d="M410,165 H445" marker-end="url(#a)"/>
+    <path d="M525,165 H540 V65 H560" marker-end="url(#a)"/>
+    <path d="M525,165 H560" marker-end="url(#a)"/>
+    <path d="M525,165 H540 V265 H560" marker-end="url(#a)"/>
+    <path d="M690,65 H730" marker-end="url(#a)"/>
+    <path d="M690,165 H730" marker-end="url(#a)"/>
+    <path d="M690,265 H730" marker-end="url(#a)"/>
+    <path d="M840,65 H850 V150 H865" marker-end="url(#a)"/>
+    <path d="M840,165 H865" marker-end="url(#a)"/>
+    <path d="M840,265 H850 V180 H865" marker-end="url(#a)"/>
+  </g>
+
+  <g fill="currentColor" font-size="14" text-anchor="middle">
+    <text x="65" y="160">Вход</text>
+    <text x="65" y="180" fill="var(--muted, currentColor)">3.5 мм</text>
+    <text x="210" y="160">Компрессор</text>
+    <text x="210" y="180" fill="var(--muted, currentColor)">ОУ + LDR, 12 В</text>
+    <text x="360" y="160">Уровень</text>
+    <text x="360" y="180" fill="var(--muted, currentColor)">10 кОм</text>
+    <text x="485" y="160">Буфер</text>
+    <text x="485" y="180" fill="var(--muted, currentColor)">повторитель</text>
+    <text x="625" y="60">полосовой MFB</text>
+    <text x="625" y="80" fill="var(--muted, currentColor)">100–200 Гц</text>
+    <text x="625" y="160">полосовой MFB</text>
+    <text x="625" y="180" fill="var(--muted, currentColor)">3.5–6.5 кГц</text>
+    <text x="625" y="260">полосовой MFB</text>
+    <text x="625" y="280" fill="var(--muted, currentColor)">8.5–20 кГц</text>
+    <text x="785" y="60">Детектор</text>
+    <text x="785" y="80" fill="var(--muted, currentColor)">×6.8</text>
+    <text x="785" y="160">Детектор</text>
+    <text x="785" y="180" fill="var(--muted, currentColor)">×6.8</text>
+    <text x="785" y="260">Детектор</text>
+    <text x="785" y="280" fill="var(--muted, currentColor)">×6.8</text>
+    <text x="877" y="160">ADC</text>
+  </g>
+</svg>

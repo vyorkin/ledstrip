@@ -1,0 +1,4 @@
+# avra outputs
+firmware/build/
+firmware/src/main.obj
+firmware/src/main.eep.hex
