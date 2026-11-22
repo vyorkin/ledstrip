@@ -85,6 +85,8 @@ make test
 ```sh
 cd firmware-stm32
 make target   # ELF/HEX/BIN + карта и занятая память
+make selftest # clockselftest: PA8 = PLLCLK / 5 для проверки осциллографом
+make dist     # пакет для удалённого стенда в dist/bench/
 make check    # host smoke-проверка целевого дерева
 make flash    # st-flash write ... 0x08000000
 ```
@@ -92,6 +94,9 @@ make flash    # st-flash write ... 0x08000000
 Нужны `arm-none-eabi-gcc` и `stlink`. Подробности, ожидаемый результат и
 проверка тактирования — в
 [firmware-stm32/target/README.md](firmware-stm32/target/README.md).
+Инструкция для человека у платы и шаблон результатов —
+[docs/bench-remote.md](docs/bench-remote.md) и
+[docs/bench-results.md](docs/bench-results.md).
 
 ## Подключение
 

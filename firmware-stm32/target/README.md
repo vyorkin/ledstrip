@@ -27,7 +27,7 @@ flash, 128 KB RAM):
 
 ```
 Memory region         Used Size  Region Size  %age Used
-           FLASH:        1212 B       512 KB      0.23%
+           FLASH:        1208 B       512 KB      0.23%
              RAM:        3088 B       128 KB      2.36%
 ```
 
@@ -70,15 +70,39 @@ before switching. `SystemCoreClockUpdate()` loads `SystemCoreClock`, and the
 1 ms SysTick is derived from it.
 
 If HSE or the PLL does not become ready within the timeout, the firmware stays
-on the 16 MHz HSI fallback and sets `g_clock_fallback = 1` in RAM; the LED still
-blinks at 1 Hz. Read `SystemCoreClock` or `g_clock_fallback` in the debugger to
-confirm the clock source.
+on the 16 MHz HSI fallback and sets `g_clock_fallback = 1` in RAM. The LED then
+blinks at 5 Hz instead of 1 Hz, so the failure is visible without a debugger.
+Read `SystemCoreClock` or `g_clock_fallback` in the debugger to confirm the
+clock source.
+
+## Clock self-test build
+
+`make selftest` produces `target/build/clockselftest.elf/.hex/.bin`. It is the
+same clock and heartbeat code plus MCO1 on PA8 (AF0) = PLLCLK / 5. At 100 MHz
+PA8 outputs 20 MHz. PA8 is on the board header, unlike PC9 (MCO2), which the
+WeAct Black Pill does not route out. On the HSI fallback PLLCLK is not running,
+so PC13 blinks at 5 Hz and PA8 is not a usable clock. This lets a scope prove
+the 100 MHz clock without a debugger.
+
+## Remote bench package
+
+`make dist` builds the normal and self-test images and copies them with the
+Russian bench guide and results template into `dist/bench/`:
+
+```sh
+cd firmware-stm32
+make dist
+```
+
+See [`docs/bench-remote.md`](../../docs/bench-remote.md) and
+[`docs/bench-results.md`](../../docs/bench-results.md).
 
 ## Pin map for this slice
 
 | Signal | Pin |
 |---|---|
 | Heartbeat LED | PC13, active low |
+| MCO1 clock output (self-test only) | PA8, AF0 |
 | SWD | PA13/PA14 |
 
 ## Faults

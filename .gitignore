@@ -6,3 +6,4 @@ firmware/src/main.eep.hex
 # host core
 firmware-stm32/build/
 firmware-stm32/target/build/
+dist/

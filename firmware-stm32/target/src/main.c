@@ -88,20 +88,44 @@ static void heartbeat_init(void)
     LL_GPIO_SetOutputPin(GPIOC, LL_GPIO_PIN_13);
 }
 
+#ifdef CLOCK_SELFTEST
+/* Bench-only build: MCO1 (PA8, AF0) = PLLCLK / 5, so 100 MHz reads as
+ * 20 MHz on a scope. PA8 is on the header; PC9 (MCO2) is not routed on
+ * the WeAct Black Pill. On the HSI fallback PLLCLK is not running. */
+static void mco1_init(void)
+{
+    LL_AHB1_GRP1_EnableClock(LL_AHB1_GRP1_PERIPH_GPIOA);
+    LL_GPIO_SetPinMode(GPIOA, LL_GPIO_PIN_8, LL_GPIO_MODE_ALTERNATE);
+    LL_GPIO_SetPinOutputType(GPIOA, LL_GPIO_PIN_8, LL_GPIO_OUTPUT_PUSHPULL);
+    LL_GPIO_SetPinSpeed(GPIOA, LL_GPIO_PIN_8, LL_GPIO_SPEED_FREQ_VERY_HIGH);
+    LL_GPIO_SetPinPull(GPIOA, LL_GPIO_PIN_8, LL_GPIO_PULL_NO);
+    LL_GPIO_SetAFPin_8_15(GPIOA, LL_GPIO_PIN_8, LL_GPIO_AF_0);
+
+    LL_RCC_ConfigMCO(LL_RCC_MCO1SOURCE_PLLCLK, LL_RCC_MCO1_DIV_5);
+}
+#endif
+
 int main(void)
 {
     clock_init_100mhz();
     SystemCoreClockUpdate();
 
     heartbeat_init();
+#ifdef CLOCK_SELFTEST
+    mco1_init();
+#endif
     /* 1 ms tick; SysTick_Config uses the processor clock by default. */
     (void)SysTick_Config(SystemCoreClock / 1000u);
+
+    /* HSI fallback blinks 5x faster, so the failure is visible without a
+     * debugger; the self-test build has no PLLCLK on PA8 either. */
+    const uint32_t toggle_ms = g_clock_fallback ? 100u : HEARTBEAT_TOGGLE_MS;
 
     uint32_t last = 0;
     for (;;) {
         uint32_t now = g_ms;
-        if ((uint32_t)(now - last) >= HEARTBEAT_TOGGLE_MS) {
-            last += HEARTBEAT_TOGGLE_MS;
+        if ((uint32_t)(now - last) >= toggle_ms) {
+            last += toggle_ms;
             LL_GPIO_TogglePin(GPIOC, LL_GPIO_PIN_13);
         }
     }

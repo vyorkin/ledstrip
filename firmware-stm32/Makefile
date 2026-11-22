@@ -8,7 +8,7 @@ SRC = src/dsp.c src/frame.c
 TEST_SRC = test/test_core.c
 TEST_BIN = $(BUILD)/test_core
 
-.PHONY: all test target flash check clean
+.PHONY: all test target selftest dist flash check clean
 
 all: test
 
@@ -23,6 +23,12 @@ test: $(TEST_BIN)
 
 target:
 	$(MAKE) -C target
+
+selftest:
+	$(MAKE) -C target selftest
+
+dist:
+	$(MAKE) -C target dist
 
 flash:
 	$(MAKE) -C target flash
