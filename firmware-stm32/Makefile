@@ -8,7 +8,7 @@ SRC = src/dsp.c src/frame.c
 TEST_SRC = test/test_core.c
 TEST_BIN = $(BUILD)/test_core
 
-.PHONY: all test clean
+.PHONY: all test target flash check clean
 
 all: test
 
@@ -21,5 +21,15 @@ $(TEST_BIN): $(SRC) $(TEST_SRC) $(wildcard include/ledstrip/*.h) | $(BUILD)
 test: $(TEST_BIN)
 	./$(TEST_BIN)
 
+target:
+	$(MAKE) -C target
+
+flash:
+	$(MAKE) -C target flash
+
+check:
+	$(MAKE) -C target check
+
 clean:
 	rm -rf $(BUILD)
+	$(MAKE) -C target clean
