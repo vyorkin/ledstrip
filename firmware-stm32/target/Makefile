@@ -16,12 +16,14 @@ CFLAGS := $(MCU) $(DEFS) $(INCLUDES) -O2 -g -Wall -Wextra -Werror -std=c99 \
           -MMD -MP -ffunction-sections -fdata-sections
 LDFLAGS := $(MCU) -T ld/stm32f411ce.ld -nostartfiles --specs=nano.specs \
            -Wl,--gc-sections -Wl,--print-memory-usage
+LDLIBS := -lm
 
 SRC := src/main.c src/system_stm32f4xx.c src/ws2812_output.c \
-       ../src/ws2812.c ../src/frame.c
+       src/adc_input.c ../src/ws2812.c ../src/frame.c ../src/dsp.c
 ASM := src/startup_stm32f411xe.s
 OBJ := $(BUILD)/main.o $(BUILD)/system_stm32f4xx.o \
-       $(BUILD)/ws2812_output.o $(BUILD)/ws2812.o $(BUILD)/frame.o \
+       $(BUILD)/ws2812_output.o $(BUILD)/adc_input.o \
+       $(BUILD)/ws2812.o $(BUILD)/frame.o $(BUILD)/dsp.o \
        $(BUILD)/startup.o
 SELFTEST_OBJ := $(BUILD)/main_selftest.o $(BUILD)/system_stm32f4xx.o \
                 $(BUILD)/startup.o
@@ -56,7 +58,7 @@ $(BUILD)/startup.o: $(ASM) | $(BUILD)
 -include $(OBJ:.o=.d) $(SELFTEST_OBJ:.o=.d)
 
 $(ELF): $(OBJ) ld/stm32f411ce.ld | $(BUILD)
-	$(CC) $(LDFLAGS) -Wl,-Map=$(BUILD)/ledstrip.map,--cref $(OBJ) -o $@
+	$(CC) $(LDFLAGS) -Wl,-Map=$(BUILD)/ledstrip.map,--cref $(OBJ) -o $@ $(LDLIBS)
 	$(SIZE) $@
 
 $(HEX): $(ELF)

@@ -6,6 +6,7 @@
 #include "stm32f4xx_ll_system.h"
 
 #include "ledstrip/frame.h"
+#include "adc_input.h"
 #include "ws2812_output.h"
 
 /* frame_render() fills FRAME_NBYTES; ws2812_output_show() reads this many. */
@@ -14,10 +15,6 @@ typedef char ws2812_frame_size_check[
 
 /* PC13 is the Black Pill LED, active low. Toggle every 500 ms: 1 Hz blink. */
 #define HEARTBEAT_TOGGLE_MS 500u
-#ifndef CLOCK_SELFTEST
-/* The strip keeps its frame; refresh only to recover from a glitch. */
-#define WS2812_REFRESH_MS 1000u
-#endif
 /* Bounded spin count for HSE/PLL/VOS readiness; not a calibrated time. */
 #define CLOCK_WAIT_LOOPS 1000000u
 
@@ -174,7 +171,14 @@ int main(void)
         }
         ws2812_show_test_frame();
     }
-    uint32_t last_ws = g_ms;
+
+    /* Capture starts after the strip is latched: the DSP loop must get both
+     * halves of the 5 ms frame, and a WS2812 frame blocks for 3.6 ms. */
+    static Dsp dsp;
+    dsp_init(&dsp, (float)ADC_INPUT_RATE_HZ);
+    adc_input_init();
+    if (!g_clock_fallback)
+        adc_input_start();
 #endif
 
     /* HSI fallback blinks 5x faster, so the failure is visible without a
@@ -189,11 +193,8 @@ int main(void)
             LL_GPIO_TogglePin(GPIOC, LL_GPIO_PIN_13);
         }
 #ifndef CLOCK_SELFTEST
-        if (!g_clock_fallback &&
-            (uint32_t)(now - last_ws) >= WS2812_REFRESH_MS) {
-            last_ws += WS2812_REFRESH_MS;
-            ws2812_show_test_frame();
-        }
+        /* Each call consumes at most two completed 480-sample halves. */
+        (void)adc_input_process(&dsp);
 #endif
     }
 }

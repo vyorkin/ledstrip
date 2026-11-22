@@ -40,14 +40,17 @@ make test
 
 ## Целевая интеграция
 
-Шаги 1 и 4 собраны в `target/`: PLL 100 МГц (HSE 25 МГц), heartbeat
-PC13 и статический кадр на PB0 через TIM3_CH3 + DMA. Остальные шаги
-ждут плату WeAct STM32F411CE и ленту; порядок, который не меняет это
-ядро:
+Шаги 1–4 собраны в `target/`: PLL 100 МГц (HSE 25 МГц), heartbeat
+PC13, захват PA1 через TIM2 TRGO + ADC1 + DMA2 Stream 0 и статический
+кадр на PB0 через TIM3_CH3 + DMA. Остальные шаги ждут плату WeAct
+STM32F411CE и ленту; порядок, который не меняет это ядро:
 
 1. Тактирование 100 МГц (HSE 25 МГц + PLL) — готово в `target/`.
-2. TIM2 → TRGO 96 кГц → ADC1 PA1 → DMA circular, 480 отсчётов.
-3. По половине/полному буферу — `dsp_process()`, каждые 480 — `dsp_frame()`.
+2. TIM2 → TRGO 96 кГц → ADC1 PA1 → DMA circular, два полубуфера по 480 —
+   готово в `target/` (символы `g_dsp_frame`, `g_dsp_frame_count`,
+   `g_adc_overruns`).
+3. По половине/полному буферу — `dsp_process()`, каждые 480 — `dsp_frame()` —
+   готово в `target/`.
 4. TIM3_CH3 PB0, 800 кГц, DMA 2880 полуслов; `frame_render()` → буфер CCR —
    готово для фиксированного кадра.
 5. PA0 — кнопка: 5 кадров подряд, затем `frame_set_mode()`.

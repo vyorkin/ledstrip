@@ -1,15 +1,14 @@
-# Target firmware: STM32F411CE, clock, heartbeat and static WS2812
+# Target firmware: STM32F411CE, clock, ADC/DSP and static WS2812
 
-Tickets #4 and #5: the bare-metal target build proves the ARM toolchain,
-the 100 MHz clock setup, the board's PC13 LED path and one static WS2812
-frame on PB0. No ADC, DSP, button, dynamic rendering, USB, HAL or CubeMX
-code is here.
+Tickets #4, #5 and #6: the bare-metal target build proves the ARM toolchain,
+the 100 MHz clock setup, the board's PC13 LED path, one static WS2812 frame
+on PB0, and the PA1 ADC capture with the DSP frame snapshot. No button,
+dynamic rendering, USB, HAL or CubeMX code is here.
 
 The strip frame is fixed: the three packets of `frame_init()` (red
 10…29, green 40…59, blue 80…99) at brightness 204 (80 %). It is rendered
 once by `frame_render()`, encoded into 2880 CCR3 halfwords and shifted out
-by TIM3_CH3 + DMA. The same frame is refreshed once per second; the strip
-latches it and needs no refresh, so this only recovers from a data glitch.
+by TIM3_CH3 + DMA. The strip latches it, so no periodic refresh is needed.
 
 ## Build
 
@@ -34,11 +33,15 @@ flash, 128 KB RAM):
 
 ```
 Memory region         Used Size  Region Size  %age Used
-           FLASH:        2160 B       512 KB      0.41%
-             RAM:        8848 B       128 KB      6.75%
+           FLASH:       11348 B       512 KB      2.16%
+             RAM:       11016 B       128 KB      8.40%
 ```
 
-Most of the RAM is the 2880-halfword DMA buffer (5760 B).
+Most of the RAM is the 2880-halfword WS2812 buffer (5760 B) and the two
+480-sample ADC halves (1920 B).
+
+The ADC/DSP slice lives in `src/adc_input.c`. It is linked from the normal
+target only; `make selftest` stays clock-only.
 
 ## Check without a board
 
@@ -74,7 +77,11 @@ firmware drives PB0 low, sends an all-zero frame, waits at least 50 µs and
 only then sends the pattern, so a strip that latched garbage at power-up is
 cleared without a white flash. If the 100 MHz PLL fails, the firmware leaves
 PB0 low and only blinks PC13 at 5 Hz: the wrong bit rate must not reach the
-strip.
+strip, and ADC/DSP capture stays stopped.
+
+The PA1 capture has no visible output in this slice. Halt in the debugger and
+read `g_dsp_frame`, `g_dsp_frame_count` and `g_adc_overruns`; feed a known tone
+at PA1 and check the expected band.
 
 ## Clock
 
@@ -135,12 +142,45 @@ bit's falling edge the firmware stops TIM3 with `CCR3 = 0`, so PB0 goes
 low without a glitch and stays low for the reset gap. The CPU only starts
 the transfer and waits for the flags; it never emits bits.
 
+## ADC capture and DSP snapshot
+
+| Parameter | Value |
+|---|---|
+| Pin | PA1, ADC1 channel 1, analog |
+| Sample rate | 96 kHz: TIM2 ARR 1041, 95.97 kHz actual |
+| Trigger | TIM2 update event -> TRGO, EXTSEL 0110 |
+| ADC clock | APB2 100 MHz / 4 = 25 MHz |
+| Sample time | 84 ADC clocks |
+| DMA | DMA2 Stream 0, channel 0, circular, halfword |
+| Buffer | 960 samples: two 480-sample halves |
+| Frame | 480 samples = 5 ms = 200 Hz |
+| Interrupts | DMA2 Stream 0 half/full transfer |
+
+`adc_input_process()` consumes every completed half, converts each 12-bit
+sample around 2048 and runs `dsp_process()`. It updates three debugger
+symbols and never prints:
+
+| Symbol | Meaning |
+|---|---|
+| `g_dsp_frame` | last `DspFrame` (brightness, beat, AGC levels) |
+| `g_dsp_frame_count` | completed frames since reset |
+| `g_adc_overruns` | dropped half-frames and DMA/ADC errors |
+
+The normal target starts capture only after the static strip pattern is
+latched and only when the PLL clock is valid. The HSI fallback leaves TIM2
+and DMA stopped, because the sample rate and the WS2812 bit rate would both
+be wrong.
+
+The ADR for the WS2812 CCR values is
+[`0003-ws2812-timing.md`](../../docs/adr/0003-ws2812-timing.md).
+
 ## Pin map for this slice
 
 | Signal | Pin |
 |---|---|
 | Heartbeat LED | PC13, active low |
 | WS2812 data | PB0, TIM3_CH3, AF2 |
+| Audio input | PA1, ADC1 channel 1 |
 | MCO1 clock output (self-test only) | PA8, AF0 |
 | SWD | PA13/PA14 |
 
@@ -152,3 +192,7 @@ the core in the debugger and inspect it. There is no watchdog yet (ticket #10).
 The WS2812 transfer polls DMA/TIM flags with a bounded spin; a failed transfer
 returns with PB0 low. Check `DMA1_Stream2->NDTR`, `DMA1->LISR` and `TIM3->SR`
 in the debugger.
+
+For ADC faults check `DMA2_Stream0->NDTR`, `DMA2->LISR`, `ADC1->SR` (OVR) and
+`g_adc_overruns`. A rising overrun count means the main loop did not consume a
+480-sample half within its 5 ms window, or a DMA/ADC error fired.

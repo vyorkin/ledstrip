@@ -17,6 +17,8 @@ typedef struct {
 typedef struct {
     float fs;
     float dc_pole;
+    float env_attack, env_release;
+    float peak_attack, peak_release;
     float dc_x1, dc_y1;
     Biquad band[DSP_BANDS];
     float env[DSP_BANDS];

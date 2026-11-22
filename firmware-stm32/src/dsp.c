@@ -68,6 +68,10 @@ void dsp_init(Dsp *d, float fs)
         fs = 96000.0f;
     d->fs = fs;
     d->dc_pole = expf(-2.0f * PI * 15.0f / fs);
+    d->env_attack = coeff_for(ENV_ATTACK_S, fs);
+    d->env_release = coeff_for(ENV_RELEASE_S, fs);
+    d->peak_attack = coeff_for(PEAK_ATTACK_S, fs);
+    d->peak_release = coeff_for(PEAK_RELEASE_S, fs);
     d->agc_gain = 1.0f;
     for (int i = 0; i < DSP_BANDS; ++i)
         biquad_init(&d->band[i], fs, f0[i], q[i]);
@@ -75,11 +79,6 @@ void dsp_init(Dsp *d, float fs)
 
 void dsp_process(Dsp *d, float x)
 {
-    const float env_attack = coeff_for(ENV_ATTACK_S, d->fs);
-    const float env_release = coeff_for(ENV_RELEASE_S, d->fs);
-    const float peak_attack = coeff_for(PEAK_ATTACK_S, d->fs);
-    const float peak_release = coeff_for(PEAK_RELEASE_S, d->fs);
-
     x = clamp01((x + 1.0f) * 0.5f) * 2.0f - 1.0f;
 
     float y = x - d->dc_x1 + d->dc_pole * d->dc_y1;
@@ -88,16 +87,16 @@ void dsp_process(Dsp *d, float x)
 
     float a = fabsf(y);
     if (a > d->peak)
-        d->peak += (a - d->peak) * peak_attack;
+        d->peak += (a - d->peak) * d->peak_attack;
     else
-        d->peak += (a - d->peak) * peak_release;
+        d->peak += (a - d->peak) * d->peak_release;
 
     for (int i = 0; i < DSP_BANDS; ++i) {
         float rect = fabsf(biquad_step(&d->band[i], y));
         if (rect > d->env[i])
-            d->env[i] += (rect - d->env[i]) * env_attack;
+            d->env[i] += (rect - d->env[i]) * d->env_attack;
         else
-            d->env[i] += (rect - d->env[i]) * env_release;
+            d->env[i] += (rect - d->env[i]) * d->env_release;
     }
 }
 
