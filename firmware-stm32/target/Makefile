@@ -8,7 +8,8 @@ STFLASH ?= st-flash
 BUILD ?= build
 MCU := -mcpu=cortex-m4 -mthumb -mfpu=fpv4-sp-d16 -mfloat-abi=hard
 DEFS := -DSTM32F411xE -DHSE_VALUE=25000000u
-INCLUDES := -Ivendor/CMSIS/Core/Include \
+INCLUDES := -Iinclude -I../include \
+            -Ivendor/CMSIS/Core/Include \
             -Ivendor/CMSIS/Device/ST/STM32F4xx/Include \
             -Ivendor/STM32F4xx_LL
 CFLAGS := $(MCU) $(DEFS) $(INCLUDES) -O2 -g -Wall -Wextra -Werror -std=c99 \
@@ -16,9 +17,12 @@ CFLAGS := $(MCU) $(DEFS) $(INCLUDES) -O2 -g -Wall -Wextra -Werror -std=c99 \
 LDFLAGS := $(MCU) -T ld/stm32f411ce.ld -nostartfiles --specs=nano.specs \
            -Wl,--gc-sections -Wl,--print-memory-usage
 
-SRC := src/main.c src/system_stm32f4xx.c
+SRC := src/main.c src/system_stm32f4xx.c src/ws2812_output.c \
+       ../src/ws2812.c ../src/frame.c
 ASM := src/startup_stm32f411xe.s
-OBJ := $(BUILD)/main.o $(BUILD)/system_stm32f4xx.o $(BUILD)/startup.o
+OBJ := $(BUILD)/main.o $(BUILD)/system_stm32f4xx.o \
+       $(BUILD)/ws2812_output.o $(BUILD)/ws2812.o $(BUILD)/frame.o \
+       $(BUILD)/startup.o
 SELFTEST_OBJ := $(BUILD)/main_selftest.o $(BUILD)/system_stm32f4xx.o \
                 $(BUILD)/startup.o
 ELF := $(BUILD)/ledstrip.elf
@@ -38,6 +42,9 @@ $(BUILD):
 	mkdir -p $(BUILD)
 
 $(BUILD)/%.o: src/%.c | $(BUILD)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(BUILD)/%.o: ../src/%.c | $(BUILD)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(BUILD)/main_selftest.o: src/main.c | $(BUILD)

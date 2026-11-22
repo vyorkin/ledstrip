@@ -5,8 +5,19 @@
 #include "stm32f4xx_ll_rcc.h"
 #include "stm32f4xx_ll_system.h"
 
+#include "ledstrip/frame.h"
+#include "ws2812_output.h"
+
+/* frame_render() fills FRAME_NBYTES; ws2812_output_show() reads this many. */
+typedef char ws2812_frame_size_check[
+    (FRAME_NBYTES == WS2812_NBYTES) ? 1 : -1];
+
 /* PC13 is the Black Pill LED, active low. Toggle every 500 ms: 1 Hz blink. */
 #define HEARTBEAT_TOGGLE_MS 500u
+#ifndef CLOCK_SELFTEST
+/* The strip keeps its frame; refresh only to recover from a glitch. */
+#define WS2812_REFRESH_MS 1000u
+#endif
 /* Bounded spin count for HSE/PLL/VOS readiness; not a calibrated time. */
 #define CLOCK_WAIT_LOOPS 1000000u
 
@@ -75,6 +86,28 @@ static void clock_init_100mhz(void)
     g_clock_fallback = 1;
 }
 
+#ifndef CLOCK_SELFTEST
+/* frame_render() writes GRB in strip order, so no colour swap is needed. */
+static void ws2812_show_frame(const uint8_t brightness[3])
+{
+    FrameState st;
+    uint8_t grb[FRAME_NBYTES];
+
+    frame_init(&st);
+    frame_render(&st, brightness, grb);
+    ws2812_output_show(grb);
+}
+
+/* Fixed bench pattern: the three packets of frame_init(), brightness 204
+ * (80 %). */
+static void ws2812_show_test_frame(void)
+{
+    static const uint8_t brightness[3] = {204u, 204u, 204u};
+
+    ws2812_show_frame(brightness);
+}
+#endif
+
 static void heartbeat_init(void)
 {
     LL_AHB1_GRP1_EnableClock(LL_AHB1_GRP1_PERIPH_GPIOC);
@@ -107,15 +140,42 @@ static void mco1_init(void)
 
 int main(void)
 {
+#ifdef CLOCK_SELFTEST
     clock_init_100mhz();
     SystemCoreClockUpdate();
 
     heartbeat_init();
-#ifdef CLOCK_SELFTEST
     mco1_init();
+#else
+    /* Before waiting for the PLL: PB0 must not float into the level shifter
+     * while the strip is powering up. The timer stays stopped, CCR3 = 0. */
+    ws2812_output_init();
+
+    clock_init_100mhz();
+    SystemCoreClockUpdate();
+
+    heartbeat_init();
 #endif
     /* 1 ms tick; SysTick_Config uses the processor clock by default. */
     (void)SysTick_Config(SystemCoreClock / 1000u);
+
+#ifndef CLOCK_SELFTEST
+    /* A WS2812 latches whatever it sees at power-up. Clear it before the
+     * pattern, with a >=50 us low gap between the two frames. If the clock
+     * fell back to HSI the bit rate is wrong, so leave PB0 low instead. */
+    if (!g_clock_fallback) {
+        static const uint8_t off[3] = {0u, 0u, 0u};
+
+        ws2812_show_frame(off);
+
+        /* Two tick boundaries: the next tick may already be imminent. */
+        uint32_t reset_at = g_ms;
+        while ((uint32_t)(g_ms - reset_at) < 2u) {
+        }
+        ws2812_show_test_frame();
+    }
+    uint32_t last_ws = g_ms;
+#endif
 
     /* HSI fallback blinks 5x faster, so the failure is visible without a
      * debugger; the self-test build has no PLLCLK on PA8 either. */
@@ -128,5 +188,12 @@ int main(void)
             last += toggle_ms;
             LL_GPIO_TogglePin(GPIOC, LL_GPIO_PIN_13);
         }
+#ifndef CLOCK_SELFTEST
+        if (!g_clock_fallback &&
+            (uint32_t)(now - last_ws) >= WS2812_REFRESH_MS) {
+            last_ws += WS2812_REFRESH_MS;
+            ws2812_show_test_frame();
+        }
+#endif
     }
 }

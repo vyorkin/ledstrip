@@ -13,7 +13,8 @@ make test
 |---|---|
 | `include/ledstrip/dsp.h`, `src/dsp.c` | три biquad band-pass, выпрямитель, огибающие, АРУ, удар |
 | `include/ledstrip/frame.h`, `src/frame.c` | позиции 8.8, отражение, режимы, пакеты GRB |
-| `test/test_core.c` | АЧХ, АРУ, удар, кадры |
+| `include/ledstrip/ws2812.h`, `src/ws2812.c` | GRB 360 байт → 2880 полуслов CCR3, MSB первым |
+| `test/test_core.c` | АЧХ, АРУ, удар, кадры, кодирование WS2812 |
 
 ## Контракт
 
@@ -21,6 +22,8 @@ make test
 - Кадр: `dsp_frame()` ровно 200 Гц (каждые 480 отсчётов).
 - `DspFrame::brightness` — 0…204, `DspFrame::beat` — удар.
 - Кадр ленты: `frame_step()` раз в кадр, `frame_render()` — 360 байт GRB.
+- Передача: `ws2812_encode()` — 360 байт GRB в 2880 полуслов `CCR3`
+  (0 → 38, 1 → 75), MSB первым; T0H/T1H/T0L/T1L ≈ 0.38/0.75/0.87/0.50 мкс.
 - `frame_init()`: режим 0, `flip=0`, позиции 10/40/80.
 - `frame_set_mode()`: меняет только `dir`; `flip` и `hitcnt` сохраняются.
 - `frame_step()`: `beat` дважды переключает `flip`; отражение на краях
@@ -37,14 +40,16 @@ make test
 
 ## Целевая интеграция
 
-Шаг 1 собран в `target/`: PLL 100 МГц (HSE 25 МГц) и heartbeat PC13.
-Остальные шаги ждут плату WeAct STM32F411CE и ленту; порядок, который не
-меняет это ядро:
+Шаги 1 и 4 собраны в `target/`: PLL 100 МГц (HSE 25 МГц), heartbeat
+PC13 и статический кадр на PB0 через TIM3_CH3 + DMA. Остальные шаги
+ждут плату WeAct STM32F411CE и ленту; порядок, который не меняет это
+ядро:
 
 1. Тактирование 100 МГц (HSE 25 МГц + PLL) — готово в `target/`.
 2. TIM2 → TRGO 96 кГц → ADC1 PA1 → DMA circular, 480 отсчётов.
 3. По половине/полному буферу — `dsp_process()`, каждые 480 — `dsp_frame()`.
-4. TIM3_CH3 PB0, 800 кГц, DMA 2880 полуслов; `frame_render()` → буфер CCR.
+4. TIM3_CH3 PB0, 800 кГц, DMA 2880 полуслов; `frame_render()` → буфер CCR —
+   готово для фиксированного кадра.
 5. PA0 — кнопка: 5 кадров подряд, затем `frame_set_mode()`.
 6. WDG → `frame_step()`.
 

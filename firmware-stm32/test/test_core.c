@@ -1,8 +1,10 @@
 #include "ledstrip/dsp.h"
 #include "ledstrip/frame.h"
+#include "ledstrip/ws2812.h"
 
 #include <math.h>
 #include <stdio.h>
+#include <string.h>
 
 #define PI 3.14159265358979323846f
 #define FS 96000.0f
@@ -169,12 +171,70 @@ static void test_frame(void)
     CHECK(out[10 * 3 + 2] == 0);
 }
 
+static void test_ws2812(void)
+{
+    uint8_t grb[WS2812_NBYTES];
+    uint16_t ccr[WS2812_NBITS];
+
+    CHECK(WS2812_NBYTES == 360);
+    CHECK(WS2812_NBITS == 2880);
+    CHECK(WS2812_ARR + 1u == 125u);
+
+    /* Contract in ns at 10 ns per tick (docs/interface.md):
+     * T0H 375, T1H 750, T0L 875, T1L 500. T0H rounds to 38 ticks. */
+    CHECK((WS2812_ARR + 1u) * 10u == 1250u);
+    CHECK(WS2812_CCR_ZERO * 10u >= 370u &&
+          WS2812_CCR_ZERO * 10u <= 380u);
+    CHECK(WS2812_CCR_ONE * 10u == 750u);
+    CHECK((WS2812_ARR + 1u - WS2812_CCR_ZERO) * 10u >= 870u &&
+          (WS2812_ARR + 1u - WS2812_CCR_ZERO) * 10u <= 880u);
+    CHECK((WS2812_ARR + 1u - WS2812_CCR_ONE) * 10u == 500u);
+
+    memset(grb, 0, sizeof grb);
+    ws2812_encode(grb, ccr);
+    for (int i = 0; i < WS2812_NBITS; ++i)
+        CHECK(ccr[i] == WS2812_CCR_ZERO);
+
+    grb[0] = 0x80;
+    ws2812_encode(grb, ccr);
+    CHECK(ccr[0] == WS2812_CCR_ONE);
+    for (int i = 1; i < WS2812_NBITS; ++i)
+        CHECK(ccr[i] == WS2812_CCR_ZERO);
+
+    grb[0] = 0x01;
+    ws2812_encode(grb, ccr);
+    CHECK(ccr[6] == WS2812_CCR_ZERO);
+    CHECK(ccr[7] == WS2812_CCR_ONE);
+
+    FrameState st;
+    uint8_t rgb[3] = {204, 204, 204};
+    frame_init(&st);
+    frame_render(&st, rgb, grb);
+
+    CHECK(grb[10 * 3 + 0] == 0);
+    CHECK(grb[10 * 3 + 1] == 204);
+    CHECK(grb[10 * 3 + 2] == 0);
+    CHECK(grb[40 * 3 + 0] == 204);
+    CHECK(grb[40 * 3 + 1] == 0);
+    CHECK(grb[80 * 3 + 2] == 204);
+
+    ws2812_encode(grb, ccr);
+    static const uint8_t bits_204[8] = {1, 1, 0, 0, 1, 1, 0, 0};
+    for (int i = 0; i < 8; ++i) {
+        uint8_t expected = bits_204[i] ? WS2812_CCR_ONE : WS2812_CCR_ZERO;
+        CHECK(ccr[(10 * 3 + 1) * 8 + i] == expected);
+        CHECK(ccr[(40 * 3 + 0) * 8 + i] == expected);
+        CHECK(ccr[(80 * 3 + 2) * 8 + i] == expected);
+    }
+}
+
 int main(void)
 {
     test_bands();
     test_agc();
     test_beat();
     test_frame();
+    test_ws2812();
 
     if (failures) {
         fprintf(stderr, "%d failure(s)\n", failures);
