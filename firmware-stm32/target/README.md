@@ -27,7 +27,7 @@ flash, 128 KB RAM):
 
 ```
 Memory region         Used Size  Region Size  %age Used
-           FLASH:        1168 B       512 KB      0.22%
+           FLASH:        1212 B       512 KB      0.23%
              RAM:        3088 B       128 KB      2.36%
 ```
 
