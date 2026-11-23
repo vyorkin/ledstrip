@@ -1,14 +1,17 @@
-# Target firmware: STM32F411CE, clock, ADC/DSP and static WS2812
+# Target firmware: STM32F411CE, clock, ADC/DSP and music-driven WS2812
 
-Tickets #4, #5 and #6: the bare-metal target build proves the ARM toolchain,
-the 100 MHz clock setup, the board's PC13 LED path, one static WS2812 frame
-on PB0, and the PA1 ADC capture with the DSP frame snapshot. No button,
-dynamic rendering, USB, HAL or CubeMX code is here.
+Tickets #4, #5, #6 and #8: the bare-metal target build proves the ARM
+toolchain, the 100 MHz clock setup, the board's PC13 LED path, the PA1 ADC
+capture, the DSP frame and the music-to-light loop on PB0. No button,
+watchdog, USB, HAL or CubeMX code is here.
 
-The strip frame is fixed: the three packets of `frame_init()` (red
-10…29, green 40…59, blue 80…99) at brightness 204 (80 %). It is rendered
-once by `frame_render()`, encoded into 2880 CCR3 halfwords and shifted out
-by TIM3_CH3 + DMA. The strip latches it, so no periodic refresh is needed.
+Each completed 480-sample half runs `dsp_process()` and produces one
+`DspFrame` at 200 Hz. The frame's brightness sets the three packet levels,
+its beat advances the every-second-beat flip, and `frame_step()` /
+`frame_render()` build the 360 GRB bytes. `ws2812_output_show()` encodes them
+into 2880 CCR3 halfwords and shifts them out with TIM3_CH3 + DMA. The strip
+therefore gets a fresh frame every 5 ms; each transfer blocks the CPU for
+3.6 ms, leaving about 1.4 ms for DSP and the next half's preparation.
 
 ## Build
 
@@ -33,8 +36,8 @@ flash, 128 KB RAM):
 
 ```
 Memory region         Used Size  Region Size  %age Used
-           FLASH:       11348 B       512 KB      2.16%
-             RAM:       11016 B       128 KB      8.40%
+           FLASH:       11848 B       512 KB      2.26%
+             RAM:       11400 B       128 KB      8.70%
 ```
 
 Most of the RAM is the 2880-halfword WS2812 buffer (5760 B) and the two
@@ -71,17 +74,23 @@ Expected result: PC13 blinks at about 1 Hz (500 ms on, 500 ms off). PC13 is
 active low, so the LED is off at reset and starts blinking from the first
 500 ms tick.
 
-With a strip on PB0 (through the level shifter and 330 Ω), LEDs 10…29 are
-red, 40…59 green and 80…99 blue; the other LEDs stay off. At power-up the
-firmware drives PB0 low, sends an all-zero frame, waits at least 50 µs and
-only then sends the pattern, so a strip that latched garbage at power-up is
-cleared without a white flash. If the 100 MHz PLL fails, the firmware leaves
-PB0 low and only blinks PC13 at 5 Hz: the wrong bit rate must not reach the
-strip, and ADC/DSP capture stays stopped.
+At power-up the firmware drives PB0 low and sends one all-zero frame, so a
+strip that latched garbage is cleared without a white flash. The strip then
+stays dark until the input has signal: silence gives brightness 0.
 
-The PA1 capture has no visible output in this slice. Halt in the debugger and
-read `g_dsp_frame`, `g_dsp_frame_count` and `g_adc_overruns`; feed a known tone
-at PA1 and check the expected band.
+With a signal on PA1 and a strip on PB0 (through the level shifter and
+330 Ω), the low band lights the red packet 10…29, the middle band green
+40…59 and the high band blue 80…99. Each packet moves 30 LEDs/s; every
+second low-band beat reverses all three directions. Music on the line input
+therefore gives the three colors moving with their band levels. If the
+100 MHz PLL fails, the firmware leaves PB0 low and only blinks PC13 at 5 Hz:
+the wrong bit rate must not reach the strip, and ADC/DSP capture stays
+stopped.
+
+Halt in the debugger and read `g_dsp_frame`, `g_dsp_frame_count` and
+`g_adc_overruns`; feed a known tone at PA1 and check the expected band.
+`g_dsp_frame_count` grows at about 200/s and equals the number of
+DSP-driven strip frames; the power-up clear frame is one more.
 
 ## Clock
 
@@ -157,19 +166,22 @@ the transfer and waits for the flags; it never emits bits.
 | Interrupts | DMA2 Stream 0 half/full transfer |
 
 `adc_input_process()` consumes every completed half, converts each 12-bit
-sample around 2048 and runs `dsp_process()`. It updates three debugger
-symbols and never prints:
+sample around 2048 and runs `dsp_process()`. Each completed 480-sample frame
+goes to the sink, which in the normal target advances the packets, renders
+GRB and shifts the strip frame. It updates three debugger symbols and never
+prints:
 
 | Symbol | Meaning |
 |---|---|
 | `g_dsp_frame` | last `DspFrame` (brightness, beat, AGC levels) |
-| `g_dsp_frame_count` | completed frames since reset |
+| `g_dsp_frame_count` | completed frames since reset (≈200/s) |
 | `g_adc_overruns` | dropped half-frames and DMA/ADC errors |
 
-The normal target starts capture only after the static strip pattern is
-latched and only when the PLL clock is valid. The HSI fallback leaves TIM2
-and DMA stopped, because the sample rate and the WS2812 bit rate would both
-be wrong.
+The normal target starts capture only after the strip has been cleared and
+only when the PLL clock is valid. Frame state is initialized before capture:
+positions 10/40/80, mode 0, `flip` and the hit counter zero. The HSI fallback
+leaves TIM2 and DMA stopped, because the sample rate and the WS2812 bit rate
+would both be wrong.
 
 The ADR for the WS2812 CCR values is
 [`0003-ws2812-timing.md`](../../docs/adr/0003-ws2812-timing.md).
@@ -195,4 +207,6 @@ in the debugger.
 
 For ADC faults check `DMA2_Stream0->NDTR`, `DMA2->LISR`, `ADC1->SR` (OVR) and
 `g_adc_overruns`. A rising overrun count means the main loop did not consume a
-480-sample half within its 5 ms window, or a DMA/ADC error fired.
+480-sample half within its 5 ms window — the 3.6 ms strip transfer plus DSP no
+longer fit — or a DMA/ADC error fired. Compare `g_dsp_frame_count` with the
+expected 200/s to see whether frames are being lost.

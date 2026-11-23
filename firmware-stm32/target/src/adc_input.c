@@ -148,7 +148,7 @@ static void adc_input_recover(void)
     s_ready = 0;
 }
 
-uint32_t adc_input_process(Dsp *d)
+uint32_t adc_input_process(Dsp *d, adc_frame_sink sink)
 {
     __disable_irq();
     uint8_t ready = s_ready;
@@ -177,8 +177,10 @@ uint32_t adc_input_process(Dsp *d)
             dsp_process(d, x);
         }
 
-        g_dsp_frame = dsp_frame(d);
+        DspFrame frame = dsp_frame(d);
+        g_dsp_frame = frame;
         g_dsp_frame_count++;
+        sink(&frame);
         frames++;
     }
 

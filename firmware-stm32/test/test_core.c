@@ -323,6 +323,60 @@ static void test_beat(void)
     CHECK(beats >= 5 && beats <= 6);
 }
 
+/* The whole target seam: dsp_process() -> dsp_frame() every 480 samples ->
+ * frame_step() -> frame_render(). A low tone must light only the red packet,
+ * use the frame's brightness for all 20 LEDs and move it off the start
+ * position. */
+static void test_pipeline(void)
+{
+    Dsp d;
+    FrameState st;
+    uint8_t out[FRAME_NBYTES];
+    DspFrame last = {0};
+    int acc = 0;
+
+    dsp_init(&d, FS);
+    frame_init(&st);
+
+    /* 100 ms: 20 frames move the packet ~3 LEDs right, and the 200 ms beat
+     * refractory means no flip can reverse it, so the position is fixed. */
+    for (int i = 0; i < (int)(FS / 10.0f); ++i) {
+        float x = 0.5f * sinf(2.0f * PI * 141.0f * (float)i / FS);
+        dsp_process(&d, x);
+        if (++acc == (int)DSP_FRAME_SAMPLES) {
+            last = dsp_frame(&d);
+            frame_step(&st, last.brightness, last.beat);
+            frame_render(&st, last.brightness, out);
+            acc = 0;
+        }
+    }
+
+    int start = (int)(st.pos[0] >> 8);
+    int reds = 0;
+    for (int i = 0; i < FRAME_NLED; ++i) {
+        CHECK(out[i * 3 + 0] == 0);
+        CHECK(out[i * 3 + 2] == 0);
+        if (out[i * 3 + 1] != 0)
+            reds++;
+    }
+    printf("pipeline: brightness %u %u %u, start %d, reds %d\n",
+           last.brightness[0], last.brightness[1], last.brightness[2], start,
+           reds);
+
+    CHECK(last.brightness[0] > 100);
+    CHECK(last.brightness[1] == 0);
+    CHECK(last.brightness[2] == 0);
+    CHECK(start >= 0 && start + FRAME_PKT <= FRAME_NLED);
+    CHECK(start != (FRAME_MAXPOS * 10 / 100) >> 8);
+    CHECK(reds == FRAME_PKT);
+    for (int i = 0; i < FRAME_PKT; ++i)
+        CHECK(out[(start + i) * 3 + 1] == last.brightness[0]);
+    if (start > 0)
+        CHECK(out[(start - 1) * 3 + 1] == 0);
+    if (start + FRAME_PKT < FRAME_NLED)
+        CHECK(out[(start + FRAME_PKT) * 3 + 1] == 0);
+}
+
 static void test_frame(void)
 {
     FrameState st;
@@ -457,6 +511,7 @@ int main(void)
     test_frame_clock();
     test_beat();
     test_beat_timing();
+    test_pipeline();
     test_frame();
     test_ws2812();
 

@@ -84,24 +84,19 @@ static void clock_init_100mhz(void)
 }
 
 #ifndef CLOCK_SELFTEST
-/* frame_render() writes GRB in strip order, so no colour swap is needed. */
-static void ws2812_show_frame(const uint8_t brightness[3])
+/* Packet state and the GRB bytes of the frame being shifted out. */
+static FrameState s_frame;
+static uint8_t s_grb[FRAME_NBYTES];
+
+/* 200 Hz LED frame: the DSP frame's brightness sets each packet's level, its
+ * beat advances the every-second-beat flip, and frame_render() writes GRB in
+ * strip order, so no colour swap is needed. ws2812_output_show() blocks for
+ * 3.6 ms while the ADC DMA keeps filling the next half buffer. */
+static void ws2812_show_dsp_frame(const DspFrame *f)
 {
-    FrameState st;
-    uint8_t grb[FRAME_NBYTES];
-
-    frame_init(&st);
-    frame_render(&st, brightness, grb);
-    ws2812_output_show(grb);
-}
-
-/* Fixed bench pattern: the three packets of frame_init(), brightness 204
- * (80 %). */
-static void ws2812_show_test_frame(void)
-{
-    static const uint8_t brightness[3] = {204u, 204u, 204u};
-
-    ws2812_show_frame(brightness);
+    frame_step(&s_frame, f->brightness, f->beat);
+    frame_render(&s_frame, f->brightness, s_grb);
+    ws2812_output_show(s_grb);
 }
 #endif
 
@@ -157,23 +152,25 @@ int main(void)
     (void)SysTick_Config(SystemCoreClock / 1000u);
 
 #ifndef CLOCK_SELFTEST
-    /* A WS2812 latches whatever it sees at power-up. Clear it before the
-     * pattern, with a >=50 us low gap between the two frames. If the clock
-     * fell back to HSI the bit rate is wrong, so leave PB0 low instead. */
+    /* A WS2812 latches whatever it sees at power-up. Clear it, then leave the
+     * line low for the >=50 us reset gap. If the clock fell back to HSI the
+     * bit rate is wrong, so leave PB0 low instead. */
     if (!g_clock_fallback) {
-        static const uint8_t off[3] = {0u, 0u, 0u};
+        static const uint8_t off[FRAME_NBYTES];
 
-        ws2812_show_frame(off);
+        ws2812_output_show(off);
 
         /* Two tick boundaries: the next tick may already be imminent. */
         uint32_t reset_at = g_ms;
         while ((uint32_t)(g_ms - reset_at) < 2u) {
         }
-        ws2812_show_test_frame();
     }
 
-    /* Capture starts after the strip is latched: the DSP loop must get both
-     * halves of the 5 ms frame, and a WS2812 frame blocks for 3.6 ms. */
+    /* Deterministic start: positions 10/40/80, mode 0, flip and hit counter
+     * zero. Capture starts after the strip is clear: each 5 ms DSP frame then
+     * renders and shifts one WS2812 frame. */
+    frame_init(&s_frame);
+
     static Dsp dsp;
     dsp_init(&dsp, (float)ADC_INPUT_RATE_HZ);
     adc_input_init();
@@ -193,8 +190,9 @@ int main(void)
             LL_GPIO_TogglePin(GPIOC, LL_GPIO_PIN_13);
         }
 #ifndef CLOCK_SELFTEST
-        /* Each call consumes at most two completed 480-sample halves. */
-        (void)adc_input_process(&dsp);
+        /* Each call consumes at most two completed 480-sample halves; each
+         * one renders and shifts a strip frame. */
+        (void)adc_input_process(&dsp, ws2812_show_dsp_frame);
 #endif
     }
 }
