@@ -5,6 +5,7 @@
 #include "stm32f4xx_ll_rcc.h"
 #include "stm32f4xx_ll_system.h"
 
+#include "ledstrip/button.h"
 #include "ledstrip/frame.h"
 #include "adc_input.h"
 #include "ws2812_output.h"
@@ -86,7 +87,22 @@ static void clock_init_100mhz(void)
 #ifndef CLOCK_SELFTEST
 /* Packet state and the GRB bytes of the frame being shifted out. */
 static FrameState s_frame;
+static ButtonState s_button;
 static uint8_t s_grb[FRAME_NBYTES];
+
+/* PA0 is the Black Pill KEY button: input with the internal pull-up, active
+ * low. */
+static void button_gpio_init(void)
+{
+    LL_AHB1_GRP1_EnableClock(LL_AHB1_GRP1_PERIPH_GPIOA);
+    LL_GPIO_SetPinMode(GPIOA, LL_GPIO_PIN_0, LL_GPIO_MODE_INPUT);
+    LL_GPIO_SetPinPull(GPIOA, LL_GPIO_PIN_0, LL_GPIO_PULL_UP);
+}
+
+static bool button_pressed(void)
+{
+    return LL_GPIO_IsInputPinSet(GPIOA, LL_GPIO_PIN_0) == 0u;
+}
 
 /* 200 Hz LED frame: the DSP frame's brightness sets each packet's level, its
  * beat advances the every-second-beat flip, and frame_render() writes GRB in
@@ -94,6 +110,12 @@ static uint8_t s_grb[FRAME_NBYTES];
  * 3.6 ms while the ADC DMA keeps filling the next half buffer. */
 static void ws2812_show_dsp_frame(const DspFrame *f)
 {
+    /* One sample per 200 Hz frame: five pressed frames (25 ms) switch the
+     * mode before this frame's step, so the new directions apply immediately.
+     * Positions, flip and the hit counter are preserved. */
+    if (button_frame(&s_button, button_pressed()))
+        frame_next_mode(&s_frame);
+
     frame_step(&s_frame, f->brightness, f->beat);
     frame_render(&s_frame, f->brightness, s_grb);
     ws2812_output_show(s_grb);
@@ -147,6 +169,7 @@ int main(void)
     SystemCoreClockUpdate();
 
     heartbeat_init();
+    button_gpio_init();
 #endif
     /* 1 ms tick; SysTick_Config uses the processor clock by default. */
     (void)SysTick_Config(SystemCoreClock / 1000u);
@@ -170,6 +193,7 @@ int main(void)
      * zero. Capture starts after the strip is clear: each 5 ms DSP frame then
      * renders and shifts one WS2812 frame. */
     frame_init(&s_frame);
+    button_init(&s_button);
 
     static Dsp dsp;
     dsp_init(&dsp, (float)ADC_INPUT_RATE_HZ);

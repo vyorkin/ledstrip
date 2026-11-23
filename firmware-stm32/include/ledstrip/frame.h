@@ -20,6 +20,9 @@ typedef struct {
 
 void frame_init(FrameState *st);
 void frame_set_mode(FrameState *st, uint8_t mode);
+/* Advance 0 -> 1 -> 2 -> 3 -> 0. Only directions change; positions, flip and
+ * the hit counter are preserved, so the switch takes effect on the next step. */
+void frame_next_mode(FrameState *st);
 void frame_step(FrameState *st, const uint8_t brightness[3], bool beat);
 void frame_render(const FrameState *st, const uint8_t brightness[3],
                   uint8_t out[FRAME_NBYTES]);

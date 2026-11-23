@@ -1,3 +1,4 @@
+#include "ledstrip/button.h"
 #include "ledstrip/dsp.h"
 #include "ledstrip/frame.h"
 #include "ledstrip/ws2812.h"
@@ -377,6 +378,91 @@ static void test_pipeline(void)
         CHECK(out[(start + FRAME_PKT) * 3 + 1] == 0);
 }
 
+static void test_button(void)
+{
+    ButtonState btn;
+
+    CHECK(BUTTON_DEBOUNCE_FRAMES == 5u);
+
+    /* Four frames (20 ms) is a tap, not a press: no mode change. */
+    button_init(&btn);
+    for (int i = 0; i < 4; ++i)
+        CHECK(!button_frame(&btn, true));
+    CHECK(!button_frame(&btn, false));
+
+    /* The fifth consecutive frame fires exactly once; holding does not repeat. */
+    for (int i = 0; i < 4; ++i)
+        CHECK(!button_frame(&btn, true));
+    CHECK(button_frame(&btn, true));
+    for (int i = 0; i < 20; ++i)
+        CHECK(!button_frame(&btn, true));
+
+    /* Release arms the next press. */
+    CHECK(!button_frame(&btn, false));
+    for (int i = 0; i < 4; ++i)
+        CHECK(!button_frame(&btn, true));
+    CHECK(button_frame(&btn, true));
+
+    /* A release between two short presses restarts the count: repeated
+     * 4-frame taps never reach five consecutive frames. */
+    button_init(&btn);
+    for (int tap = 0; tap < 3; ++tap) {
+        for (int i = 0; i < 4; ++i)
+            CHECK(!button_frame(&btn, true));
+        CHECK(!button_frame(&btn, false));
+    }
+}
+
+static void test_mode_switch(void)
+{
+    static const int8_t dirs[4][3] = {
+        {0, 0, 0},
+        {1, 0, 1},
+        {0, 0, 1},
+        {0, 1, 0},
+    };
+    FrameState st;
+    uint8_t red[3] = {204, 0, 0};
+
+    frame_init(&st);
+    CHECK(st.mode == 0);
+
+    /* Two beats set flip = 1 and hitcnt = 0; positions differ from the start. */
+    for (int i = 0; i < 7; ++i)
+        frame_step(&st, red, i == 1 || i == 4);
+    CHECK(st.flip == 1);
+    CHECK(st.hitcnt == 0);
+
+    int32_t pos[3] = {st.pos[0], st.pos[1], st.pos[2]};
+
+    for (int mode = 1; mode <= 4; ++mode) {
+        frame_next_mode(&st);
+        CHECK(st.mode == (mode & 3));
+        CHECK(st.pos[0] == pos[0] && st.pos[1] == pos[1] &&
+              st.pos[2] == pos[2]);
+        CHECK(st.flip == 1);
+        CHECK(st.hitcnt == 0);
+        for (int ch = 0; ch < 3; ++ch)
+            CHECK(st.dir[ch] == dirs[mode & 3][ch]);
+    }
+
+    /* The target's wiring: one button sample per frame, then a mode change
+     * only when the debounced press fires. Five frames = exactly one mode. */
+    FrameState pressed;
+    ButtonState btn;
+    frame_init(&pressed);
+    button_init(&btn);
+    int events = 0;
+    for (int frame = 0; frame < 5; ++frame) {
+        if (button_frame(&btn, true)) {
+            frame_next_mode(&pressed);
+            events++;
+        }
+    }
+    CHECK(events == 1);
+    CHECK(pressed.mode == 1);
+}
+
 static void test_frame(void)
 {
     FrameState st;
@@ -512,6 +598,8 @@ int main(void)
     test_beat();
     test_beat_timing();
     test_pipeline();
+    test_button();
+    test_mode_switch();
     test_frame();
     test_ws2812();
 

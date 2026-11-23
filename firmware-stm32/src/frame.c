@@ -27,6 +27,11 @@ void frame_set_mode(FrameState *st, uint8_t mode)
         st->dir[i] = mode_dirs[st->mode][i];
 }
 
+void frame_next_mode(FrameState *st)
+{
+    frame_set_mode(st, (uint8_t)(st->mode + 1u));
+}
+
 void frame_step(FrameState *st, const uint8_t brightness[3], bool beat)
 {
     (void)brightness;

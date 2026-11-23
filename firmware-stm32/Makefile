@@ -4,7 +4,7 @@ CPPFLAGS ?= -Iinclude
 LDLIBS ?= -lm
 BUILD ?= build
 
-SRC = src/dsp.c src/frame.c src/ws2812.c
+SRC = src/dsp.c src/frame.c src/button.c src/ws2812.c
 TEST_SRC = test/test_core.c
 TEST_BIN = $(BUILD)/test_core
 

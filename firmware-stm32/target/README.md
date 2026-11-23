@@ -1,9 +1,9 @@
-# Target firmware: STM32F411CE, clock, ADC/DSP and music-driven WS2812
+# Target firmware: STM32F411CE, clock, ADC/DSP, button and music-driven WS2812
 
-Tickets #4, #5, #6 and #8: the bare-metal target build proves the ARM
+Tickets #4, #5, #6, #8 and #9: the bare-metal target build proves the ARM
 toolchain, the 100 MHz clock setup, the board's PC13 LED path, the PA1 ADC
-capture, the DSP frame and the music-to-light loop on PB0. No button,
-watchdog, USB, HAL or CubeMX code is here.
+capture, the DSP frame, the music-to-light loop on PB0 and the PA0 mode
+button. No watchdog, USB, HAL or CubeMX code is here.
 
 Each completed 480-sample half runs `dsp_process()` and produces one
 `DspFrame` at 200 Hz. The frame's brightness sets the three packet levels,
@@ -36,15 +36,16 @@ flash, 128 KB RAM):
 
 ```
 Memory region         Used Size  Region Size  %age Used
-           FLASH:       11848 B       512 KB      2.26%
+           FLASH:       12060 B       512 KB      2.30%
              RAM:       11400 B       128 KB      8.70%
 ```
 
 Most of the RAM is the 2880-halfword WS2812 buffer (5760 B) and the two
 480-sample ADC halves (1920 B).
 
-The ADC/DSP slice lives in `src/adc_input.c`. It is linked from the normal
-target only; `make selftest` stays clock-only.
+The ADC/DSP slice lives in `src/adc_input.c`; the button logic is the portable
+`../src/button.c`. Both are linked from the normal target only; `make selftest`
+stays clock-only.
 
 ## Check without a board
 
@@ -186,6 +187,20 @@ would both be wrong.
 The ADR for the WS2812 CCR values is
 [`0003-ws2812-timing.md`](../../docs/adr/0003-ws2812-timing.md).
 
+## Button
+
+PA0 is the Black Pill KEY button, input with the internal pull-up, active low.
+It is sampled once per 200 Hz DSP frame, before that frame's `frame_step()`.
+Five consecutive pressed frames (25 ms) call `frame_next_mode()` once; a
+shorter press is ignored, and holding the button does not repeat until it is
+released. The mode advances 0→1→2→3→0 using the four AVR direction rows.
+Only `dir` changes: positions, `flip` and the hit counter are preserved, so
+there is no reset and no EEPROM write.
+
+`frame_next_mode()` runs before the movement step, so the new directions apply
+to the same frame that confirms the press. Add `s_button.count` and
+`s_frame.mode` to the debugger watch to observe the debounce and the mode.
+
 ## Pin map for this slice
 
 | Signal | Pin |
@@ -193,6 +208,7 @@ The ADR for the WS2812 CCR values is
 | Heartbeat LED | PC13, active low |
 | WS2812 data | PB0, TIM3_CH3, AF2 |
 | Audio input | PA1, ADC1 channel 1 |
+| Mode button | PA0, input, internal pull-up, active low |
 | MCO1 clock output (self-test only) | PA8, AF0 |
 | SWD | PA13/PA14 |
 
