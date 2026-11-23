@@ -1,9 +1,10 @@
-# Target firmware: STM32F411CE, clock, ADC/DSP, button and music-driven WS2812
+# Target firmware: STM32F411CE, clock, ADC/DSP, button, music-driven WS2812, watchdog
 
-Tickets #4, #5, #6, #8 and #9: the bare-metal target build proves the ARM
+Tickets #4, #5, #6, #8, #9 and #10: the bare-metal target build proves the ARM
 toolchain, the 100 MHz clock setup, the board's PC13 LED path, the PA1 ADC
-capture, the DSP frame, the music-to-light loop on PB0 and the PA0 mode
-button. No watchdog, USB, HAL or CubeMX code is here.
+capture, the DSP frame, the music-to-light loop on PB0, the PA0 mode button,
+and a 50 ms independent watchdog with a recorded reset cause. No USB, HAL or
+CubeMX code is here.
 
 Each completed 480-sample half runs `dsp_process()` and produces one
 `DspFrame` at 200 Hz. The frame's brightness sets the three packet levels,
@@ -212,14 +213,55 @@ to the same frame that confirms the press. Add `s_button.count` and
 | MCO1 clock output (self-test only) | PA8, AF0 |
 | SWD | PA13/PA14 |
 
+## Watchdog and reset cause
+
+The independent watchdog runs from the LSI (32 kHz nominal, 17…47 kHz over
+temperature and part spread). `iwdg_init()` selects divider 4 and reload 399,
+so the timeout is `(399 + 1) × 4 / 32 000 s` = **50 ms nominal** (about
+34…94 ms over the LSI spread). `iwdg_refresh()` writes 0xAAAA once per
+DspFrame, after the WS2812 transfer, so a normal 5 ms frame reloads ten times
+before the deadline.
+
+The watchdog is started before the clock setup, and the bounded HSE/PLL/VOS
+wait loops refresh it on every iteration, so a debugger halt anywhere in
+startup resets the MCU. It is not stopped by the debugger: keep the core
+halted for longer than the timeout and the MCU resets. The HSI fallback has no
+DspFrames, so its idle loop reloads the watchdog and the diagnostic 5 Hz blink
+stays visible.
+
+| Reset cause bit | Meaning |
+|---|---|
+| `RESET_CAUSE_IWDG` | independent watchdog |
+| `RESET_CAUSE_WWDG` | window watchdog |
+| `RESET_CAUSE_LPWR` | low-power reset |
+| `RESET_CAUSE_SOFT` | software reset |
+| `RESET_CAUSE_POR` | power-on reset |
+| `RESET_CAUSE_PIN` | NRST pin |
+| `RESET_CAUSE_BOR` | brown-out reset |
+
+`reset_cause_capture()` runs first in `main()`, copies the sticky RCC flags
+into `g_reset_cause`, and clears them (`RMVF`) so the next boot reports its own
+cause. Several bits are normal at once, for example POR plus PIN. Read
+`g_reset_cause` in the debugger after the reset: `RESET_CAUSE_IWDG` alone
+means the frame loop missed its 50 ms deadline.
+
+On a reset with the valid 100 MHz clock, watchdog included, startup is
+deterministic: PB0 is driven low, one all-zero frame is shifted out, the line
+is then held low for the reset gap, frame state becomes positions 10/40/80
+with mode 0, flip and hit counter zero, and only then does ADC capture start.
+The strip is therefore dark until the first valid DspFrame; a packet or colour
+from before the reset is never latched again. On the HSI fallback the bit rate
+would be wrong, so no frame is sent (PB0 only stays low) and a pre-reset image
+is not cleared.
+
 ## Faults
 
 No target faults are expected in this slice. If one fires, the CMSIS startup
-vector sends it to `Default_Handler`, which loops with the state intact; halt
-the core in the debugger and inspect it. There is no watchdog yet (ticket #10).
-The WS2812 transfer polls DMA/TIM flags with a bounded spin; a failed transfer
-returns with PB0 low. Check `DMA1_Stream2->NDTR`, `DMA1->LISR` and `TIM3->SR`
-in the debugger.
+vector sends it to `Default_Handler`, which loops; the watchdog then resets the
+MCU after about 50 ms instead of leaving it wedged. The WS2812 transfer polls
+DMA/TIM flags with a bounded spin; a failed transfer returns with PB0 low, and
+a transfer that stalls longer than the watchdog timeout resets the MCU.
+Check `DMA1_Stream2->NDTR`, `DMA1->LISR` and `TIM3->SR` in the debugger.
 
 For ADC faults check `DMA2_Stream0->NDTR`, `DMA2->LISR`, `ADC1->SR` (OVR) and
 `g_adc_overruns`. A rising overrun count means the main loop did not consume a

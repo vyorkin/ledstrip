@@ -19,11 +19,12 @@ LDFLAGS := $(MCU) -T ld/stm32f411ce.ld -nostartfiles --specs=nano.specs \
 LDLIBS := -lm
 
 SRC := src/main.c src/system_stm32f4xx.c src/ws2812_output.c \
-       src/adc_input.c ../src/ws2812.c ../src/frame.c ../src/button.c \
-       ../src/dsp.c
+       src/adc_input.c src/iwdg.c src/reset.c \
+       ../src/ws2812.c ../src/frame.c ../src/button.c ../src/dsp.c
 ASM := src/startup_stm32f411xe.s
 OBJ := $(BUILD)/main.o $(BUILD)/system_stm32f4xx.o \
        $(BUILD)/ws2812_output.o $(BUILD)/adc_input.o \
+       $(BUILD)/iwdg.o $(BUILD)/reset.o \
        $(BUILD)/ws2812.o $(BUILD)/frame.o $(BUILD)/button.o \
        $(BUILD)/dsp.o $(BUILD)/startup.o
 SELFTEST_OBJ := $(BUILD)/main_selftest.o $(BUILD)/system_stm32f4xx.o \

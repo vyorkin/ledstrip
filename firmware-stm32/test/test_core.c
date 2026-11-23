@@ -473,6 +473,18 @@ static void test_frame(void)
     CHECK(st.pos[0] == FRAME_MAXPOS * 10 / 100);
     CHECK(st.pos[1] == FRAME_MAXPOS * 40 / 100);
     CHECK(st.pos[2] == FRAME_MAXPOS * 80 / 100);
+    CHECK(st.mode == 0);
+    CHECK(st.flip == 0);
+    CHECK(st.hitcnt == 0);
+    for (int ch = 0; ch < 3; ++ch)
+        CHECK(st.dir[ch] == 0);
+
+    /* Before the first DspFrame every brightness is zero and the strip is
+     * dark; frame_init() alone must not light anything. */
+    uint8_t off[3] = {0, 0, 0};
+    frame_render(&st, off, out);
+    for (int i = 0; i < FRAME_NBYTES; ++i)
+        CHECK(out[i] == 0);
 
     frame_render(&st, red, out);
     CHECK(out[10 * 3 + 1] == 204);

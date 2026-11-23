@@ -8,6 +8,8 @@
 #include "ledstrip/button.h"
 #include "ledstrip/frame.h"
 #include "adc_input.h"
+#include "iwdg.h"
+#include "reset.h"
 #include "ws2812_output.h"
 
 /* frame_render() fills FRAME_NBYTES; ws2812_output_show() reads this many. */
@@ -29,6 +31,16 @@ void SysTick_Handler(void)
     g_ms++;
 }
 
+/* The clock waits are bounded, but each iteration is a possible halt point
+ * for the debugger; keep the watchdog fed while waiting for HSE/PLL/VOS. The
+ * self-test build has no watchdog. */
+static void clock_wait_kick(void)
+{
+#ifndef CLOCK_SELFTEST
+    iwdg_refresh();
+#endif
+}
+
 /* SystemInit() in the CMSIS template only sets the FPU and vector table; the
  * clock tree is configured here with LL, no HAL and no raw register writes. */
 static void clock_init_100mhz(void)
@@ -46,6 +58,7 @@ static void clock_init_100mhz(void)
     LL_RCC_HSE_Enable();
     uint32_t i;
     for (i = 0; i < CLOCK_WAIT_LOOPS && !LL_RCC_HSE_IsReady(); i++) {
+        clock_wait_kick();
     }
     if (i == CLOCK_WAIT_LOOPS) {
         g_clock_fallback = 1;
@@ -58,6 +71,7 @@ static void clock_init_100mhz(void)
                                 LL_RCC_PLLP_DIV_2);
     LL_RCC_PLL_Enable();
     for (i = 0; i < CLOCK_WAIT_LOOPS && !LL_RCC_PLL_IsReady(); i++) {
+        clock_wait_kick();
     }
     if (i == CLOCK_WAIT_LOOPS) {
         g_clock_fallback = 1;
@@ -66,6 +80,7 @@ static void clock_init_100mhz(void)
 
     /* VOS takes effect only with the PLL running. */
     for (i = 0; i < CLOCK_WAIT_LOOPS && !LL_PWR_IsActiveFlag_VOS(); i++) {
+        clock_wait_kick();
     }
     if (i == CLOCK_WAIT_LOOPS) {
         g_clock_fallback = 1;
@@ -80,6 +95,7 @@ static void clock_init_100mhz(void)
         if (LL_RCC_GetSysClkSource() == LL_RCC_SYS_CLKSOURCE_STATUS_PLL) {
             return;
         }
+        clock_wait_kick();
     }
     g_clock_fallback = 1;
 }
@@ -119,6 +135,10 @@ static void ws2812_show_dsp_frame(const DspFrame *f)
     frame_step(&s_frame, f->brightness, f->beat);
     frame_render(&s_frame, f->brightness, s_grb);
     ws2812_output_show(s_grb);
+
+    /* One reload per 200 Hz frame: a stalled transfer, a wedged DSP path or a
+     * debugger halt gets 50 ms (nominal) before the MCU resets. */
+    iwdg_refresh();
 }
 #endif
 
@@ -161,6 +181,13 @@ int main(void)
     heartbeat_init();
     mco1_init();
 #else
+    /* Capture the sticky reset flags before anything else touches RCC. */
+    reset_cause_capture();
+
+    /* Start the watchdog first; clock_init_100mhz() refreshes it inside its
+     * bounded waits, so a halt anywhere in startup resets the MCU. */
+    iwdg_init();
+
     /* Before waiting for the PLL: PB0 must not float into the level shifter
      * while the strip is powering up. The timer stays stopped, CCR3 = 0. */
     ws2812_output_init();
@@ -214,6 +241,11 @@ int main(void)
             LL_GPIO_TogglePin(GPIOC, LL_GPIO_PIN_13);
         }
 #ifndef CLOCK_SELFTEST
+        /* No DspFrames on the HSI fallback, so keep the watchdog alive here;
+         * the diagnostic 5 Hz blink is the point of that mode. */
+        if (g_clock_fallback)
+            iwdg_refresh();
+
         /* Each call consumes at most two completed 480-sample halves; each
          * one renders and shifts a strip frame. */
         (void)adc_input_process(&dsp, ws2812_show_dsp_frame);
